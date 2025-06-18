@@ -42,8 +42,13 @@ def count_syl(word, d):
 
 def read_novels(path=Path.cwd() / "texts" / "novels"):
     """Reads texts from a directory of .txt files and returns a DataFrame with the text, title,
-    author, and year"""
-    pass
+    author, and year
+    
+    ingests -> file path
+    output -> DataFrame containing novel information with columns: text, title, author, year
+
+    """
+    novelsData = []
 
 
 def parse(df, store_path=Path.cwd() / "pickles", out_name="parsed.pickle"):
