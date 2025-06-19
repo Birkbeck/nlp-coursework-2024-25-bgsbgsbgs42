@@ -12,6 +12,10 @@ http://codesignal.com/learn/courses/text-data-preprocessing-in-python/lessons/to
 https://www.sltinfo.com/wp-content/uploads/2014/01/type-token-ratio.pdf
 
 1c.
+http://www.speech.cs.cmu.edu/cgi-bin/cmudict
+https://stackoverflow.com/questions/49581705/using-cmudict-to-count-syllables 
+https://pypi.org/project/cmudict/ 
+
 
 1d. 
 https://victorious.com/blog/flesch-kincaid-readability/ 
