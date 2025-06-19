@@ -5,7 +5,6 @@
 import nltk
 import spacy
 from pathlib import Path
-import pandas as pd
 import os
 
 
@@ -50,6 +49,10 @@ def read_novels(path=Path.cwd() / "texts" / "novels"):
     output -> DataFrame containing novel information with columns: text, title, author, year
 
     """
+    #Import pandas 
+    import pandas as pd
+    
+    #Initialise array to store data
     novelData = []
     
     #Check file path and return error if not found
@@ -92,8 +95,8 @@ def read_novels(path=Path.cwd() / "texts" / "novels"):
                 'year': year
             })
             
-            except Exception as e:
-            print(f"Error processing file {file_path}: {str(e)}")
+        except Exception as e:
+            print (f"Error processing file {file_path}: {str(e)}")
             continue
             
     # Create the DataFrame and sort by year
@@ -115,8 +118,34 @@ def parse(df, store_path=Path.cwd() / "pickles", out_name="parsed.pickle"):
 
 
 def nltk_ttr(text):
-    """Calculates the type-token ratio of a text. Text is tokenized using nltk.word_tokenize."""
-    pass
+    """Calculates the type-token ratio of a text. Text is tokenized using nltk.word_tokenize.
+    
+       ingests -> text to analyse (string)
+       output -> type-token ratio of the text (float)
+    """
+    #Import dependencies 
+    import nltk
+    from nltk.tokenize import word_tokenize
+    from nltk.corpus import stopwords
+    import string
+    
+    
+    #Tokenize work using word tokenizer
+    tokens = word_tokenize(text)
+    
+    #Convert to LC and filter out punctuation
+    words = [word.lower() for word in tokens if word.isalpha()]
+
+    #Calculate type- token ratio 
+    if not words:  # Avoid division by zero error
+        return 0.0
+    
+    num_types = len(set(words))  # Unique words (types)
+    num_tokens = len(words)      # Total words (tokens)
+    
+    ttratio = (num_types / num_tokens) * 100
+    
+    return ttratio
 
 
 def get_ttrs(df):

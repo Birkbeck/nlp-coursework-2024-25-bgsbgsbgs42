@@ -6,6 +6,10 @@ https://www.geeksforgeeks.org/how-to-sort-pandas-dataframe/
 
 
 1b.
+https://www.nltk.org/howto/tokenize.html 
+https://www.geeksforgeeks.org/python/python-nltk-nltk-tokenizer-word_tokenize/ 
+http://codesignal.com/learn/courses/text-data-preprocessing-in-python/lessons/tokenizing-text-data-in-nlp-with-python-and-nltk 
+https://www.sltinfo.com/wp-content/uploads/2014/01/type-token-ratio.pdf
 
 1c.
 
