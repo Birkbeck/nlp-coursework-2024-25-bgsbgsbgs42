@@ -53,6 +53,30 @@ def read_novels(path=Path.cwd() / "texts" / "novels"):
     #Check file path and return error if not found
     if not path.exists():
         raise FileNotFoundError(f"The required file path {path} does not exist.")
+    
+    #For each text (.txt file) in file path
+    for file_path in path.glob('*.txt'):
+        try:
+            # Read filename components (Title-Author-Year.txt) for content sought
+            
+            filename = file_path.stem  # Get filename without extension
+            parts = filename.split('-')
+            
+            # Ensure we have at least title, author, and year, so that the dataframe is complete 
+            if len(parts) < 3:
+                print(f"Skipping file {filename} - incorrect naming format")
+                continue
+            
+            # Take the metadata from the filename
+            title = '-'.join(parts[:-2]).strip()  # Handle titles with hyphens
+            author = parts[-2].strip()
+            year = parts[-1].strip()
+            
+            #Check if the year is a number (i.e. in a numerical format)
+            if not year.isdigit():
+                print(f"Skipping file {filename} - year is not numeric")
+                continue
+            year = int(year)
 
 
 def parse(df, store_path=Path.cwd() / "pickles", out_name="parsed.pickle"):
