@@ -5,6 +5,8 @@
 import nltk
 import spacy
 from pathlib import Path
+import pandas as pd
+import os
 
 
 nlp = spacy.load("en_core_web_sm")
@@ -77,6 +79,33 @@ def read_novels(path=Path.cwd() / "texts" / "novels"):
                 print(f"Skipping file {filename} - year is not numeric")
                 continue
             year = int(year)
+            
+            # Read the text content
+            with open(file_path, 'r', encoding='utf-8') as file:
+                text = file.read()
+                
+            # Add to the data collection
+            novelData.append({
+                'text': text,
+                'title': title,
+                'author': author,
+                'year': year
+            })
+            
+            except Exception as e:
+            print(f"Error processing file {file_path}: {str(e)}")
+            continue
+            
+    # Create the DataFrame and sort by year
+    if not novelData:
+        raise ValueError("No valid novel files found in the directory.")
+    
+    df = pd.DataFrame(novelData)
+    df = df.sort_values('year').reset_index(drop=True)
+    
+    return df
+        
+            
 
 
 def parse(df, store_path=Path.cwd() / "pickles", out_name="parsed.pickle"):
