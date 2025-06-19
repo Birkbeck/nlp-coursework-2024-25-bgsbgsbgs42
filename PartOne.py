@@ -49,6 +49,10 @@ def read_novels(path=Path.cwd() / "texts" / "novels"):
 
     """
     novelData = []
+    
+    #Check file path and return error if not found
+    if not path.exists():
+        raise FileNotFoundError(f"The required file path {path} does not exist.")
 
 
 def parse(df, store_path=Path.cwd() / "pickles", out_name="parsed.pickle"):
