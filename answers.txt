@@ -1,1 +1,7 @@
 Answers to the text questions go here.
+
+1d. The Flesch-Kincaid score is not a valid, robust, or reliable measure of text difficulty under two key conditions.
+First, it performs poorly when applied to literary forms it was not designed to assess, such as poetry, plays, or fiction. The formula was developed for educational textbooks, so its reliance on word and sentence length leads to inaccurate results for stylised writing. For example, Shakespeare’s sonnets or Dr Seuss’s The Cat in the Hat may receive misleading scores, as their structures deviate from textbook prose.
+Second, the score fails to account for conceptual complexity or prior knowledge required. It measures surface-level features (e.g., syllables per word, sentence length) but ignores deeper comprehension barriers. A horror novel with polysyllabic words may score as "difficult" yet remain more accessible than a concise mathematics paper with technical jargon. Similarly, a short sentence containing a term like "noumenon" could be harder to grasp than a longer one with familiar vocabulary.
+So, while useful for straightforward texts, Flesch-Kincaid lacks validity when evaluating specialised, creative, or conceptually dense material.
+ 

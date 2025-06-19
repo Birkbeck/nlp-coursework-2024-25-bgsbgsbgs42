@@ -48,7 +48,7 @@ def read_novels(path=Path.cwd() / "texts" / "novels"):
     output -> DataFrame containing novel information with columns: text, title, author, year
 
     """
-    novelsData = []
+    novelData = []
 
 
 def parse(df, store_path=Path.cwd() / "pickles", out_name="parsed.pickle"):
