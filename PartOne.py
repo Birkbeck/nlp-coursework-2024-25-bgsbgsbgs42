@@ -11,7 +11,8 @@ import os
 nlp = spacy.load("en_core_web_sm")
 nlp.max_length = 2000000
 
-
+#import dependencies
+import cmudict 
 
 def fk_level(text, d):
     """Returns the Flesch-Kincaid Grade Level of a text (higher grade is more difficult).
@@ -24,7 +25,13 @@ def fk_level(text, d):
     Returns:
         float: The Flesch-Kincaid Grade Level of the text. (higher grade is more difficult)
     """
+    # Tokenize sentences and words
+    sentences = nltk.sent_tokenize(text)
+    words = [word.lower() for word in nltk.word_tokenize(text) if word.isalpha()]
     
+    # Calculate basic counts
+    total_sentences = len(sentences)
+    total_words = len(words)
   
 
 
@@ -41,6 +48,8 @@ def count_syl(word, d):
     """
     pass
 
+#Import pandas 
+import pandas as pd
 
 def read_novels(path=Path.cwd() / "texts" / "novels"):
     """Reads texts from a directory of .txt files and returns a DataFrame with the text, title,
@@ -50,8 +59,7 @@ def read_novels(path=Path.cwd() / "texts" / "novels"):
     output -> DataFrame containing novel information with columns: text, title, author, year
 
     """
-    #Import pandas 
-    import pandas as pd
+    
     
     #Initialise array to store data
     novelData = []
@@ -117,18 +125,17 @@ def parse(df, store_path=Path.cwd() / "pickles", out_name="parsed.pickle"):
     the resulting  DataFrame to a pickle file"""
     pass
 
-
+#Import dependencies 
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+import string
+    
 def nltk_ttr(text):
     """Calculates the type-token ratio of a text. Text is tokenized using nltk.word_tokenize.
     
        ingests -> text to analyse (string)
        output -> type-token ratio of the text (float)
     """
-    #Import dependencies 
-    import nltk
-    from nltk.tokenize import word_tokenize
-    from nltk.corpus import stopwords
-    import string
     
     
     #Tokenize work using word tokenizer
