@@ -91,14 +91,38 @@ def vectorise_data():
     return x_train, x_test, y_train, y_test, vectoriser
 
 #c
+#Import the dependencies
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn.metrics import classification_report, f1_score
 
 
-def train_evaluate_models():
-    try:
-        # Initialise models
-        randomforest = RandomForestClassifier(n_estimators=300, random_state=26)
-        SVM = SVC(kernel='linear', random_state=26)
+def train_evaluate_models(x_train, x_test, y_train, y_test):
+    # Initialise the models
+    randomforest = RandomForestClassifier(n_estimators=300, random_state=26)
+    SVM = SVC(kernel='linear', random_state=26)
+    
+    # Training the models
+    randomforest.fit(x_train, y_train)
+    SVM.fit(x_train, y_train)
+    
+    # Obtaining the results
+    results = {}
+    for m, model in [('Random Forest', randomforest), ('SVM', SVM)]:
+        y_pred = model.predict(x_test)
+        macro_f1_score = f1_score(y_test, y_pred, average='macro')
+        c_report = classification_report(y_test, y_pred)
+        
+        results[m] = {
+                'macro_f1': macro_f1_score,
+                'report': c_report
+            }
+        
+        # Print the results 
+        print(f"\n{m} Results:")
+        print(f"Macro-average F1 score: {macro_f1_score:.4f}")
+        print("Classification Report:")
+        print(c_report)
+        
+        return results
         
