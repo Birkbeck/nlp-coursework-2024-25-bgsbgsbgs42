@@ -31,6 +31,18 @@ from sklearn.model_selection import train_test_split
 #Vectorising the speeches using TF-IDF
 
 def vectorise_data():
+    # Reading the CSV file
+    df = pd.read_csv('texts/hansard40000.csv')
+    
     vectoriser = TfidfVectorizer(stop_words='english', max_features=3000)
     X = vectoriser.fit_transform(df['speech'])
     y = df['party']
+    
+    # Splitting into the train and test sets with stratified sampling
+    x_train, x_test, y_train, y_test = train_test_split(
+        X, y, 
+        train_size=0.8, 
+        random_state=26, 
+        shuffle=True, 
+        stratify=y
+    )

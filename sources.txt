@@ -45,6 +45,7 @@ https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.nlargest.html
 2b. https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html 
 https://www.capitalone.com/tech/machine-learning/scikit-tfidf-implementation/
 https://www.geeksforgeeks.org/machine-learning/how-to-implement-stratified-sampling-with-scikit-learn/ 
+http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html
 
 2c. 
 
