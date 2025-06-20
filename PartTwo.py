@@ -189,7 +189,7 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
         Handle parliamentary jargon such as procedural terms (e.g. "reading", "amendment", , "whip", "backbench", "frontbench"), specific titles and roles (e.g."Right Honourable", "Prime Minister", "Chancellor", "Secretary of State", "Shadow", "Chief Whip", "Leader of the Opposition", "Backbencher", "Sinn Féin abstention") and formal address (e.g. "Mr Speaker", "Madam Deputy Speaker", "honourable member", "right hon"); debate phrases(e.g."point of order", "unparliamentary language", "division bell"); voting/legislation terms (e.g."free vote", "three-line whip", "statutory instrument", "Henry VIII powers")
    
     ingests -> text (corpus of political texts)
-    outputs -> list of tokens
+    outputs -> list of tokens preserving political vocabulary
    
    Steps:
     1. Text normalisation and cleaning and remove common parliamentary fillers
@@ -219,4 +219,5 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
 
     """
     
-    
+    # Load spaCy's English model
+    nlp = spacy.load("en_core_web_sm")
