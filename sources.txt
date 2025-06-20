@@ -54,7 +54,17 @@ https://scikit-learn.org/stable/modules/generated/sklearn.metrics.classification
 
 2d. https://www.geeksforgeeks.org/machine-learning/tf-idf-for-bigrams-trigrams/
 
-2e.
+2e. https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html
+https://medium.com/@d.goglia/embed-your-favourite-tokenizer-in-tfidfvectorizer-b9f3441491c1
+https://gist.github.com/deargle/b57738c8ce2b4ed6ca90f86d5422431f 
+https://stackoverflow.com/questions/67154565/custom-tokenization-rule-spacy
+https://neptune.ai/blog/tokenization-in-nlp
+https://www.datacamp.com/blog/what-is-tokenization
+https://dev.to/hakeem/building-a-custom-tokenizer-for-llms-to-handle-unique-vocabulary-1a32
+https://dev.co/build-custom-tokenization-pipelines-for-nlp-models
+https://chatgpt.com/s/t_6855694a001c8191a33c6f576bb8551b 
+https://claude.ai/share/beea5eb1-8777-49b6-a4fe-4588f082ba49
+
 
 2f.
 

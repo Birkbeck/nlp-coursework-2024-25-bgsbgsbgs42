@@ -136,7 +136,7 @@ def second_vectorise_class_report():
     x = vectoriser.fit_transform(df['speech'].astype(str))
     y = df['party']
     
-      # Split data
+    # Split data
     x_train, x_test, y_train, y_test = train_test_split (x, y, test_size=0.2, random_state=26, stratify=y)
     
     randomforest = RandomForestClassifier(n_estimators=300, random_state=26)
@@ -165,3 +165,15 @@ def second_vectorise_class_report():
         print(c_report)
         
     return x, y, vectoriser
+
+#e
+#Importing the dependencies 
+from tokenizers import Tokenizer
+from tokenizers.models import BPE
+from tokenizers.trainers import BpeTrainer
+from tokenizers.pre_tokenizers import Whitespace
+from tokenizers import normalizers
+from tokenizers.normalizers import NFKC
+
+def custom_tokeniser_political_speeches(text):
+    
