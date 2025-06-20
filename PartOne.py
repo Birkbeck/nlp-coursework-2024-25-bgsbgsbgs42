@@ -171,7 +171,7 @@ def parse(df, store_path=Path.cwd() / "pickles", out_name="parsed.pickle"):
     
     ingests -> DataFrame, storepath, name of the pickle fite that will be output
     outputs -> pickle file of the resulting DataFrame with an added 'parsed' column containing objects in the spaCy docs"""
-    # Create directory if it doesn't exist
+    # Create the directory if it doesn't exist
     store_path.mkdir(parents=True, exist_ok=True)
     pickle_path = store_path / out_name
     
@@ -184,17 +184,17 @@ def parse(df, store_path=Path.cwd() / "pickles", out_name="parsed.pickle"):
             docs = []
             for chunk in [text[i:i+max_length] for i in range(0, len(text), max_length)]:
                 docs.append(nlp(chunk))
-            # Combine the docs (note: this may lose some cross-chunk context)
+            # Combine the docs which could lose some cross-chunk context! 
             return spacy.tokens.Doc.from_docs(docs)
         else:
             return nlp(text)
         
-     # Apply processing to each text in the DataFrame
+     # Processing each text in the DataFrame
     parsed_df  = df['text'].apply(processing)
    
     # Serialise the DataFrame to pickle
     with open(pickle_path, 'wb') as f:
-        pickle.dump(df, f)
+        pickle.dump(parsed_df, f)
 
     # Return the processed DataFrame
     return parsed_df
@@ -210,9 +210,7 @@ def nltk_ttr(text):
        ingests -> text to analyse (string)
        output -> type-token ratio of the text (float)
     """
-    
-    
-    #Tokenize work using word tokenizer
+    #Tokenise the work using word tokenizer
     tokens = word_tokenize(text)
     
     #Convert to LC and filter out punctuation
@@ -246,12 +244,26 @@ def get_fks(df):
         results[row["title"]] = round(fk_level(row["text"], cmudict), 4)
     return results
 
+#Import the required dependencies
+from math import log2
+from collections import defaultdict
 
 def subjects_by_verb_pmi(doc, target_verb):
-    """Extracts the most common subjects of a given verb in a parsed document. Returns a list."""
-    pass
+    """Extracts the most common subjects of a given verb in a parsed document. Returns a list.
+    
+        ingests-> parsed document and the target verb
+        outputs -> list of subjects/syntactic objects and pmi score, ordered by the pmi score
+    """
+    # Initialise the counters
+    verb_count = 0
+    subject_counts = defaultdict(int)
+    cooccurence_counts = defaultdict(int)
+    total_tokens = len(doc)
+    
 
 
+# Import the dependencies for ii and iii
+from collections import Counter
 
 def subjects_by_verb_count(doc, verb):
     """Extracts the most common subjects of a given verb in a parsed document. Returns a list."""
