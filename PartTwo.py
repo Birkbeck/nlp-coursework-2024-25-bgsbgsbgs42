@@ -35,14 +35,24 @@ def vectorise_data():
     df = pd.read_csv('texts/hansard40000.csv')
     
     vectoriser = TfidfVectorizer(stop_words='english', max_features=3000)
-    X = vectoriser.fit_transform(df['speech'])
+    x = vectoriser.fit_transform(df['speech'])
     y = df['party']
     
     # Splitting into the train and test sets with stratified sampling
     x_train, x_test, y_train, y_test = train_test_split(
-        X, y, 
+        x, y, 
         train_size=0.8, 
         random_state=26, 
         shuffle=True, 
         stratify=y
     )
+    
+    # Print out the class distributions
+    print("Class distribution in full dataset:")
+    print(y.value_counts())
+    print("\nClass distribution in train set:")
+    print(y_train.value_counts())
+    print("\nClass distribution in test set:")
+    print(y_test.value_counts())
+    
+    return x_train, x_test, y_train, y_test, vectoriser
