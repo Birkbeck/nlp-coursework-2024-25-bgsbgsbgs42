@@ -11,8 +11,14 @@ import os
 nlp = spacy.load("en_core_web_sm")
 nlp.max_length = 2000000
 
-#import dependencies
-import cmudict 
+#Import dependencies 
+from nltk.corpus import cmudict
+
+d = cmudict.dict() 
+
+# Download required NLTK data
+nltk.download('punkt')
+nltk.download('cmudict')
 
 def fk_level(text, d):
     """Returns the Flesch-Kincaid Grade Level of a text (higher grade is more difficult).
@@ -32,6 +38,38 @@ def fk_level(text, d):
     # Calculate basic counts
     total_sentences = len(sentences)
     total_words = len(words)
+    total_syllables = 0
+    
+    # Calculate total syllables using CMU dict and fallback method
+    for word in words:
+        # Try to get syllable count from CMU dictionary first
+        if word in d:
+            # Get syllable count from CMU dictionary (count stress markers) - first pronunciation variant
+            pronunciation = d[word][0]
+            syllables = sum(1 for phoneme in pronunciation if phoneme[-1].isdigit())
+            total_syllables += syllables
+        else:
+            # Fallback syllable counting for words not in CMU dict
+            vowels = "aeiouy"
+            syllable_count = 0
+            prev_char_was_vowel = False
+            
+        # Count vowel clusters
+            for char in word:
+                if char in vowels:
+                    if not prev_char_was_vowel:
+                        syllable_count += 1
+                    prev_char_was_vowel = True
+                else:
+                    prev_char_was_vowel = False
+            
+            # Adjust for silent e at end
+            if word.endswith('e') and syllable_count > 1:
+                syllable_count -= 1
+            
+            # Ensure at least one syllable
+            syllable_count = max(1, syllable_count)
+            total_syllables += syllable_count
   
 
 
@@ -59,7 +97,6 @@ def read_novels(path=Path.cwd() / "texts" / "novels"):
     output -> DataFrame containing novel information with columns: text, title, author, year
 
     """
-    
     
     #Initialise array to store data
     novelData = []
