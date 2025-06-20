@@ -253,8 +253,8 @@ from nltk.tokenize import word_tokenize
 def subjects_by_verb_pmi(doc, target_verb):
     """Extracts the most common subjects of a given verb in a parsed document. Returns a list.
     
-        ingests-> parsed document and the target verb
-        outputs -> list of subjects/syntactic objects and pmi score, ordered by the pmi score
+        ingests-> parsed document (spacy.tokens.Doc) and the target verb (str)
+        outputs -> list of subjects/syntactic objects and pmi score, ordered by the pmi score (list)
     """
     # Extract all the subject-verb pairs
     pairs = []
@@ -277,19 +277,47 @@ def subjects_by_verb_pmi(doc, target_verb):
         word_freq[subject] += 1
         word_freq[verb] += 1
         pair_freq[(subject, verb)] += 1
+    
+    # Calculate the PMI scores 
+    pmi_scores = []
+    for (subject, verb), freq in pair_freq.items():
+        # USe joint probability
+        p_pair = freq / total_pairs
+        
+        # Use marginal probabilities
+        p_subject = word_freq[subject] / total_pairs
+        p_verb = word_freq[verb] / total_pairs
+        
+        # The PMI calculation with smoothing
+        if p_pair > 0 and p_subject > 0 and p_verb > 0:
+            pmi = math.log2(p_pair / (p_subject * p_verb))
+            pmi_scores.append((subject, pmi))
+    
+    # Return top 10 by their PMI score
+    return sorted(pmi_scores, key=lambda x: x[1], reverse=True)[:10]
 
 
 # Import the dependencies for ii and iii
 from collections import Counter
 
 def subjects_by_verb_count(doc, verb):
-    """Extracts the most common subjects of a given verb in a parsed document. Returns a list."""
-    pass
+    """Extracts the most common subjects of a given verb in a parsed document. Returns a list.
+    
+    ingests -> parsed document (spacy.tokens.Doc), base form of the verb (str)
+    outputs -> list of, e.g. subject, count, tuples sorted by count descending (list)
+    
+    """
+   
 
 
 
 def adjective_counts(doc):
-    """Extracts the most common adjectives in a parsed document. Returns a list of tuples."""
+    """Extracts the most common adjectives in a parsed document. Returns a list of tuples.
+    
+    ingests -> doc (spacy.tokens.Doc) of the  parsed document (str)
+    outputs -> list of (adjective, count) tuples sorted by count descending (list)  
+    
+    """
     pass
 
 
