@@ -172,6 +172,19 @@ def parse(df, store_path=Path.cwd() / "pickles", out_name="parsed.pickle"):
     ingests -> DataFrame, storepath, name of the pickle fite that will be output
     outputs -> pickle file of the resulting DataFrame with an added 'parsed' column containing objects in the spaCy docs"""
     
+    # Process texts with spaCy, with special attention to handling potential long texts
+    def processing (text):
+        # Check if text exceeds spaCy's max length
+        max_length = nlp.max_length
+        if len(text) > max_length:
+            # Process in chunks if text is too long
+            docs = []
+            for chunk in [text[i:i+max_length] for i in range(0, len(text), max_length)]:
+                docs.append(nlp(chunk))
+            # Combine the docs (note: this may lose some cross-chunk context)
+            return spacy.tokens.Doc.from_docs(docs)
+        else:
+            return nlp(text)
 
 #Import dependencies 
 from nltk.tokenize import word_tokenize
