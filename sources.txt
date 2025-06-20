@@ -31,6 +31,9 @@ https://www.geeksforgeeks.org/python/pickle-python-object-serialization/
 1f.https://www.listendata.com/2022/06/pointwise-mutual-information-pmi.html 
 https://courses.grainger.illinois.edu/cs447/fa2018/Slides/Lecture17HO.pdf 
 https://python.plainenglish.io/pointwise-mutual-information-pmi-manual-vs-nltk-approach-9e398cb8b978 
+https://suttipong-kull.medium.com/how-to-extract-subject-verb-and-object-by-nlp-4149323a7d7d 
+https://medium.com/@acrosson/extract-subject-matter-of-documents-using-nlp-e284c1c61824 
+https://www.nltk.org/book/ch05.html 
 
 - 
 

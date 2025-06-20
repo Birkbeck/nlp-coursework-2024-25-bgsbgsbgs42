@@ -307,7 +307,18 @@ def subjects_by_verb_count(doc, verb):
     outputs -> list of, e.g. subject, count, tuples sorted by count descending (list)
     
     """
-   
+    subjects = []
+    
+    for token in doc:
+        # Check if token is the target verb, which works for any tense
+        if token.pos_ == "VERB" and token.lemma_ == verb:
+            # Find all the subjects of this verb
+            for child in token.children:
+                if child.dep_ in ("nsubj", "nsubjpass"):  # Search for both active and passive subjects
+                    subjects.append(child.text.lower())
+    
+    # Return top 10 most common subjects
+    return Counter(subjects).most_common(10)
 
 
 
