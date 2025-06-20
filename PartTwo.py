@@ -178,14 +178,16 @@ from tokenizers.normalizers import NFKC
 def custom_tokeniser_political_speeches(text):
     """
     The tokeniser must:
-        Preserve political and ideological vocabulary (e.g. "freedom", "security", "tax", "immigration")
-        Remove stopwords and meaningless fillers (e.g. "uh", "applause")
-        Lemmatize words to group related forms ("running" → "run")
-        Retain named entities (like "United States", "European Union")
-        Filter by part-of-speech to keep nouns, verbs, adjectives (important for meaning)
-        Include unigrams, bigrams and trigrams (like "tax cuts", "climate change")
+        Preserve political and ideological vocabulary (e.g. "freedom", "security", "tax", "immigration"), especially across the left/right spectrum ( e.g. "socialism", "neoliberalism", "one-nation conservatism", "Blairism") and value specific phrases (e.g."equality", "sovereignty", "libertarian", "populism")
+        Remove stopwords and meaningless fillers (e.g. "uh", "applause") and drop filler words (e.g."erm", "hear hear", "interruption") and overly frequent non-discriminatory/ambigous terms (e.g."country", "people").
+        Lemmatize words to group related forms ("running" becomes "run")
+        Retain named entities (like "United States", "European Union") and Institutions (e.g."House of Lords", "First Past the Post", "Devolution", "Supreme Court",) as well as historical references (e.g. "Winter of Discontent", "New Labour", "Coalition Government")
+        Filter by part-of-speech to keep nouns, verbs, adjectives 
+        Include unigrams, bigrams and trigrams (like "tax cuts", "climate change") especially for political slogans (e.g."Take Back Control", "Levelling Up", "Strong and Stable") and media frames (e.g "sleaze allegations", "partygate", "Peston interview")
         Handle party names and abbreviations(e.g. Tory, LibDem, SNP..),UK political phrases(e.g. red wall, hung parliament), economic terms (e.g. quantitive easing, austerity, furlough) consitutional terms (e.g. Westminster, Whitehall, Downing Street), specific policy area vocabulary (e.g. NHS, grammar schools), Brexit related terms, UK spelling variations
-        Preserve hyphenated compounds
+        Preserve hyphenated compounds (e.g. "middle-income", "post-Brexit", "anti-Semitism", "pro-European")
+        Segment for policy areas: NHS (e.g."Junior doctors", "waiting lists", "Privatisation"); education (e.g. "T-levels", "free schools", "tuition fees"); housing: (e.g."Section 21", "leasehold reform", "Right to Buy"); defence (e.g."Trident renewal", "two-carrier strategy")
+        Preserve acronyms, e.g. ("PMQs", "FoM", "ERG", "DUP", "PFI")
         Find patterns for Political collocations (e.g"public services", "working families"), ideological phrases( e.g."social justice", "free market"), crisis terminology (e.g"cost of living", "housing crisis")
-        Handle parliamentary jargon such as procedural terms (e.g. "reading", "amendment", , "whip", "backbench", "frontbench"), specific titles and roles (e.g."Right Honourable", "Prime Minister", "Chancellor", "Secretary of State", "Shadow") and formal address (e.g. "Mr Speaker", "Madam Deputy Speaker", "honourable member", "right hon")
-        """
+        Handle parliamentary jargon such as procedural terms (e.g. "reading", "amendment", , "whip", "backbench", "frontbench"), specific titles and roles (e.g."Right Honourable", "Prime Minister", "Chancellor", "Secretary of State", "Shadow", "Chief Whip", "Leader of the Opposition", "Backbencher", "Sinn Féin abstention") and formal address (e.g. "Mr Speaker", "Madam Deputy Speaker", "honourable member", "right hon"); debate phrases(e.g."point of order", "unparliamentary language", "division bell"); voting/legislation terms (e.g."free vote", "three-line whip", "statutory instrument", "Henry VIII powers")
+"""
