@@ -34,6 +34,7 @@ https://python.plainenglish.io/pointwise-mutual-information-pmi-manual-vs-nltk-a
 https://suttipong-kull.medium.com/how-to-extract-subject-verb-and-object-by-nlp-4149323a7d7d 
 https://medium.com/@acrosson/extract-subject-matter-of-documents-using-nlp-e284c1c61824 
 https://www.nltk.org/book/ch05.html 
+https://stackoverflow.com/questions/32724867/python-getting-the-count-for-the-adjectives-in-a-string 
 
 - 
 

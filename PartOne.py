@@ -343,7 +343,16 @@ def adjective_counts(doc):
     outputs -> list of (adjective, count) tuples sorted by count descending (list)  
     
     """
-    pass
+    adjectives = []
+    
+    adjective = token.text.lower() 
+    
+    for token in doc: 
+            if token.pos_ == "ADJ": # POS tag for adjectives
+                adjectives.append (adjective)
+                
+    # Return the top 10 most common adjectives in the text
+    return Counter(adjectives).most_common(10)
 
 
 
