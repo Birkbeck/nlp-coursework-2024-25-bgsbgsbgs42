@@ -52,7 +52,7 @@ https://scikit-learn.org/stable/modules/ensemble.html#forest
 https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html
 https://scikit-learn.org/stable/modules/generated/sklearn.metrics.classification_report.html
 
-2d. 
+2d. https://www.geeksforgeeks.org/machine-learning/tf-idf-for-bigrams-trigrams/
 
 2e.
 

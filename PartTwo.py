@@ -60,7 +60,7 @@ def vectorise_data():
     # Reading the CSV file
     df = pd.read_csv('texts/hansard40000.csv')
     
-    vectoriser = TfidfVectorizer(stop_words='english', max_features=3000 min_df=5) # Error handling for edge cases of rare terms 
+    vectoriser = TfidfVectorizer(stop_words='english', max_features=3000, min_df=5) # Error handling for edge cases of rare terms 
     x = vectoriser.fit_transform(df['speech'].astype(str))
     y = df['party']
     
@@ -125,4 +125,43 @@ def train_evaluate_models(x_train, x_test, y_train, y_test):
         print(c_report)
         
         return results
+
+#d
+# function for second vectorisor with unigrams, bigrams and trigrams
+def second_vectorise_class_report():
+    # Reading the CSV file
+    df = pd.read_csv('texts/hansard40000.csv')
+    
+    vectoriser = TfidfVectorizer(ngram_range=(1, 3),  stop_words='english', max_features=3000, min_df=5)
+    x = vectoriser.fit_transform(df['speech'].astype(str))
+    y = df['party']
+    
+      # Split data
+    x_train, x_test, y_train, y_test = train_test_split (x, y, test_size=0.2, random_state=26, stratify=y)
+    
+    randomforest = RandomForestClassifier(n_estimators=300, random_state=26)
+    SVM = SVC(kernel='linear', random_state=26)
+    
+    # Training the models
+    randomforest.fit(x_train, y_train)
+    SVM.fit(x_train, y_train)
+    
+    # Obtaining the results
+    results = {}
+    for m, model in [('Random Forest', randomforest), ('SVM', SVM)]:
+        y_pred = model.predict(x_test)
+        macro_f1_score = f1_score(y_test, y_pred, average='macro')
+        c_report = classification_report(y_test, y_pred)
         
+        results[m] = {
+                'macro_f1': macro_f1_score,
+                'report': c_report
+            }
+        
+        # Print the results 
+        print(f"\n{m} Results with n-grams (1-3):")
+        print(f"Macro-average F1 score: {macro_f1_score:.4f}")
+        print("Classification Report:")
+        print(c_report)
+        
+    return x, y, vectoriser
