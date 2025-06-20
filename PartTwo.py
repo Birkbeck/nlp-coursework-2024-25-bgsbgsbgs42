@@ -22,3 +22,11 @@ def data_processing():
     #Printing the dimensions of the resulting dataframe using df.shape
     print(df.shape)
     
+    
+#b 
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.model_selection import train_test_split
+
+def vectorise_data():
+    

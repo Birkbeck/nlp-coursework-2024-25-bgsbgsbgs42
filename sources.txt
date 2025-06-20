@@ -42,7 +42,9 @@ https://stackoverflow.com/questions/32724867/python-getting-the-count-for-the-ad
 2a. https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rename.html 
 https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.nlargest.html 
 
-2b.
+2b. https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html 
+https://www.capitalone.com/tech/machine-learning/scikit-tfidf-implementation/
+https://www.geeksforgeeks.org/machine-learning/how-to-implement-stratified-sampling-with-scikit-learn/ 
 
 2c. 
 
