@@ -64,7 +64,8 @@ https://dev.to/hakeem/building-a-custom-tokenizer-for-llms-to-handle-unique-voca
 https://dev.co/build-custom-tokenization-pipelines-for-nlp-models
 https://chatgpt.com/s/t_6855694a001c8191a33c6f576bb8551b 
 https://claude.ai/share/beea5eb1-8777-49b6-a4fe-4588f082ba49
-
+https://www.kaggle.com/code/roblexnana/nlp-with-nltk-tokenizing-text-and-wordnet-basics
+https://www.nltk.org/howto/wordnet.html
 
 2f.
 
