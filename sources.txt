@@ -28,7 +28,9 @@ https://docs.python.org/3/library/pickle.html
 https://www.geeksforgeeks.org/python/understanding-python-pickling-example/
 https://www.geeksforgeeks.org/python/pickle-python-object-serialization/
 
-1f.
+1f.https://www.listendata.com/2022/06/pointwise-mutual-information-pmi.html 
+https://courses.grainger.illinois.edu/cs447/fa2018/Slides/Lecture17HO.pdf 
+https://python.plainenglish.io/pointwise-mutual-information-pmi-manual-vs-nltk-approach-9e398cb8b978 
 
 - 
 

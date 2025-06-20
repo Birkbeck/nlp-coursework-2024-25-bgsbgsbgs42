@@ -245,8 +245,10 @@ def get_fks(df):
     return results
 
 #Import the required dependencies
-from math import log2
+import math
 from collections import defaultdict
+from nltk.collocations import BigramCollocationFinder, BigramAssocMeasures
+from nltk.tokenize import word_tokenize
 
 def subjects_by_verb_pmi(doc, target_verb):
     """Extracts the most common subjects of a given verb in a parsed document. Returns a list.
@@ -254,12 +256,27 @@ def subjects_by_verb_pmi(doc, target_verb):
         ingests-> parsed document and the target verb
         outputs -> list of subjects/syntactic objects and pmi score, ordered by the pmi score
     """
-    # Initialise the counters
-    verb_count = 0
-    subject_counts = defaultdict(int)
-    cooccurence_counts = defaultdict(int)
-    total_tokens = len(doc)
+    # Extract all the subject-verb pairs
+    pairs = []
+    for token in doc:
+        if token.pos_ == "VERB" and token.lemma_ == target_verb:
+            for child in token.children:
+                if child.dep_ in ("nsubj", "nsubjpass"):
+                    pairs.append((child.text.lower(), token.lemma_.lower()))
     
+    # If no pairs are found, it will return empty list
+    if not pairs:
+        return []
+    
+    # Calculate frequencies
+    word_freq = defaultdict(int)
+    pair_freq = defaultdict(int)
+    total_pairs = len(pairs)
+    
+    for subject, verb in pairs:
+        word_freq[subject] += 1
+        word_freq[verb] += 1
+        pair_freq[(subject, verb)] += 1
 
 
 # Import the dependencies for ii and iii
