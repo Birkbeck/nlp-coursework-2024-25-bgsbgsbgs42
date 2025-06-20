@@ -20,7 +20,13 @@ https://pypi.org/project/cmudict/
 1d. 
 https://victorious.com/blog/flesch-kincaid-readability/ 
 
-1e.
+1e. https://spacy.io/api 
+https://spacy.io/api/architectures#parser 
+https://spacyr.quanteda.io/reference/spacy_parse.html
+https://realpython.com/natural-language-processing-spacy-python/
+https://docs.python.org/3/library/pickle.html
+https://www.geeksforgeeks.org/python/understanding-python-pickling-example/
+https://www.geeksforgeeks.org/python/pickle-python-object-serialization/
 
 1f.
 

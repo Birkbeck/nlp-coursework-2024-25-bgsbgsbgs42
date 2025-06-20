@@ -167,8 +167,11 @@ def read_novels(path=Path.cwd() / "texts" / "novels"):
 
 def parse(df, store_path=Path.cwd() / "pickles", out_name="parsed.pickle"):
     """Parses the text of a DataFrame using spaCy, stores the parsed docs as a column and writes 
-    the resulting  DataFrame to a pickle file"""
-    pass
+    the resulting  DataFrame to a pickle file
+    
+    ingests -> DataFrame, storepath, name of the pickle fite that will be output
+    outputs -> pickle file of the resulting DataFrame with an added 'parsed' column containing objects in the spaCy docs"""
+    
 
 #Import dependencies 
 from nltk.tokenize import word_tokenize
