@@ -308,6 +308,7 @@ def subjects_by_verb_count(doc, verb):
     
     """
     subjects = []
+    verb_lemma = verb_lemma.lower()
     
     for token in doc:
         # Check if token is the target verb, which works for any tense
@@ -316,6 +317,19 @@ def subjects_by_verb_count(doc, verb):
             for child in token.children:
                 if child.dep_ in ("nsubj", "nsubjpass"):  # Search for both active and passive subjects
                     subjects.append(child.text.lower())
+        
+        # Check for subjects in auxiliary constructions (e.g., "has been heard")
+            if token.dep_ == "auxpass":
+                for ancestor in token.head.children:
+                    if ancestor.dep_ in ("nsubj", "nsubjpass"):
+                        subjects.append(ancestor.text.lower())
+        
+        # Additional check for verb forms that might be tagged as other POS (e.g., participles functioning as adjectives)    
+        for token in doc:
+            if token.lemma_.lower() == verb_lemma and token.tag_ in ("VBN", "VBG"):
+                for child in token.children:
+                    if child.dep_ in ("nsubj", "nsubjpass"):
+                        subjects.append(child.text.lower())
     
     # Return top 10 most common subjects
     return Counter(subjects).most_common(10)
