@@ -28,5 +28,9 @@ import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 
+#Vectorising the speeches using TF-IDF
+
 def vectorise_data():
-    
+    vectoriser = TfidfVectorizer(stop_words='english', max_features=3000)
+    X = vectoriser.fit_transform(df['speech'])
+    y = df['party']
