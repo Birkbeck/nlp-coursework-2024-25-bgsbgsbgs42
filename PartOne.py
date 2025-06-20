@@ -31,7 +31,7 @@ def fk_level(text, d):
     Returns:
         float: The Flesch-Kincaid Grade Level of the text. (higher grade is more difficult)
     """
-    # Tokenize sentences and words
+    # Tokenise sentences and words
     sentences = nltk.sent_tokenize(text)
     words = [word.lower() for word in nltk.word_tokenize(text) if word.isalpha()]
     
@@ -175,12 +175,12 @@ def parse(df, store_path=Path.cwd() / "pickles", out_name="parsed.pickle"):
     store_path.mkdir(parents=True, exist_ok=True)
     pickle_path = store_path / out_name
     
-    # Process texts with spaCy, with special attention to handling potential long texts
+    # Process texts with spaCy, with special attention to handling potentially long texts
     def processing (text):
-        # Check if text exceeds spaCy's max length
+        # Check if the text exceeds spaCy's max length
         max_length = nlp.max_length
         if len(text) > max_length:
-            # Process in chunks if text is too long
+            # Process in the text chunks if text is too long
             docs = []
             for chunk in [text[i:i+max_length] for i in range(0, len(text), max_length)]:
                 docs.append(nlp(chunk))
@@ -199,7 +199,7 @@ def parse(df, store_path=Path.cwd() / "pickles", out_name="parsed.pickle"):
     # Return the processed DataFrame
     return parsed_df
 
-#Import dependencies 
+#Import the dependencies 
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 import string
@@ -216,7 +216,7 @@ def nltk_ttr(text):
     #Convert to LC and filter out punctuation
     words = [word.lower() for word in tokens if word.isalpha()]
 
-    #Calculate type- token ratio 
+    #Calculate type - token ratio 
     if not words:  # Avoid division by zero error
         return 0.0
     
@@ -264,11 +264,11 @@ def subjects_by_verb_pmi(doc, target_verb):
                 if child.dep_ in ("nsubj", "nsubjpass"):
                     pairs.append((child.text.lower(), token.lemma_.lower()))
     
-    # If no pairs are found, it will return empty list
+    # If no pairs are found,  return an empty list
     if not pairs:
         return []
     
-    # Calculate frequencies
+    # Calculate the frequencies
     word_freq = defaultdict(int)
     pair_freq = defaultdict(int)
     total_pairs = len(pairs)
@@ -281,14 +281,14 @@ def subjects_by_verb_pmi(doc, target_verb):
     # Calculate the PMI scores 
     pmi_scores = []
     for (subject, verb), freq in pair_freq.items():
-        # USe joint probability
+        # Use joint probability
         p_pair = freq / total_pairs
         
-        # Use marginal probabilities
+        # Use the marginal probabilities
         p_subject = word_freq[subject] / total_pairs
         p_verb = word_freq[verb] / total_pairs
         
-        # The PMI calculation with smoothing
+        # Perform the PMI calculation with smoothing
         if p_pair > 0 and p_subject > 0 and p_verb > 0:
             pmi = math.log2(p_pair / (p_subject * p_verb))
             pmi_scores.append((subject, pmi))

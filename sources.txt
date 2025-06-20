@@ -35,6 +35,8 @@ https://suttipong-kull.medium.com/how-to-extract-subject-verb-and-object-by-nlp-
 https://medium.com/@acrosson/extract-subject-matter-of-documents-using-nlp-e284c1c61824 
 https://www.nltk.org/book/ch05.html 
 https://stackoverflow.com/questions/32724867/python-getting-the-count-for-the-adjectives-in-a-string 
+https://gist.github.com/TheLoneNut/208cd69bbca7cd7c53af26470581ec1e
+https://en.wikipedia.org/wiki/Pointwise_mutual_information
 
 - 
 
@@ -66,6 +68,12 @@ https://chatgpt.com/s/t_6855694a001c8191a33c6f576bb8551b
 https://claude.ai/share/beea5eb1-8777-49b6-a4fe-4588f082ba49
 https://www.kaggle.com/code/roblexnana/nlp-with-nltk-tokenizing-text-and-wordnet-basics
 https://www.nltk.org/howto/wordnet.html
+https://medium.com/data-science/using-nlp-and-text-analytics-to-cluster-political-texts-41fdb2c3a325
+https://huggingface.co/learn/llm-course/en/chapter6/8
+https://www.geeksforgeeks.org/nlp/how-wordpiece-tokenization-addresses-the-rare-words-problem-in-nlp/
+https://yashvaantlakham73.medium.com/unlocking-precision-in-nlp-with-tailored-solutions-562c79e5e738
+https://www.marktechpost.com/2025/02/16/a-step-by-step-guide-to-setting-up-a-custom-bpe-tokenizer-with-tiktoken-for-advanced-nlp-applications-in-python/
+https://colab.research.google.com/drive/1ZoNFwFAeB8UFBLYhwoZnovVuMKZCo4C4
 
 2f.
 

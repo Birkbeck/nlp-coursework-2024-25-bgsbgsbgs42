@@ -5,17 +5,17 @@ def data_processing():
     # Reading the CSV file
     df = pd.read_csv('texts/hansard40000.csv')
     
-    #Check the df is not empty
+    #Checking the df is not empty
     if df.empty:
         raise ValueError("Empty dataframe loaded")
     
-    #Check required colums are present
+    #Checking required colums are present
     required_columns = {'Party', 'Speech', 'speech_class'}
     if not required_columns.issubset(df.columns):
         missing = required_columns - set(df.columns)
         raise ValueError(f"Missing required columns: {missing}")
     
-    #Check 'Party' is column is present in df 
+    #Checking 'Party' is column is present in df 
     if 'Party' not in df.columns:
         raise ValueError("'Party' column missing in dataframe")
 
@@ -32,7 +32,7 @@ def data_processing():
     df = df[df['party'].isin(top_parties)]
     df = df[df['party'] != 'Speaker']
     
-    # Filter speech class
+    # Filtering for speech class
     if 'speech_class' not in df.columns:
         raise ValueError("'speech_class' column missing")
     
@@ -91,7 +91,7 @@ def vectorise_data():
     return x_train, x_test, y_train, y_test, vectoriser
 
 #c
-#Import the dependencies
+#Importing the dependencies
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn.metrics import classification_report, f1_score
@@ -127,7 +127,7 @@ def train_evaluate_models(x_train, x_test, y_train, y_test):
         return results
 
 #d
-# function for second vectorisor with unigrams, bigrams and trigrams
+# Function for second vectorisor with unigrams, bigrams and trigrams
 def second_vectorise_class_report():
     # Reading the CSV file
     df = pd.read_csv('texts/hansard40000.csv')
@@ -136,7 +136,7 @@ def second_vectorise_class_report():
     x = vectoriser.fit_transform(df['speech'].astype(str))
     y = df['party']
     
-    # Split data
+    # Splitting the data
     x_train, x_test, y_train, y_test = train_test_split (x, y, test_size=0.2, random_state=26, stratify=y)
     
     randomforest = RandomForestClassifier(n_estimators=300, random_state=26)
@@ -158,7 +158,7 @@ def second_vectorise_class_report():
                 'report': c_report
             }
         
-        # Print the results 
+        # Printing the results 
         print(f"\n{m} Results with n-grams (1-3):")
         print(f"Macro-average F1 score: {macro_f1_score:.4f}")
         print("Classification Report:")
@@ -184,10 +184,12 @@ def custom_tokeniser_political_speeches(text):
         Retain named entities (like "United States", "European Union") and Institutions (e.g."House of Lords", "First Past the Post", "Devolution", "Supreme Court",) as well as historical references (e.g. "Winter of Discontent", "New Labour", "Coalition Government")
         Filter by part-of-speech to keep nouns, verbs, adjectives 
         Include unigrams, bigrams and trigrams (like "tax cuts", "climate change") especially for political slogans (e.g."Take Back Control", "Levelling Up", "Strong and Stable") and media frames (e.g "sleaze allegations", "partygate", "Peston interview")
-        Handle party names and abbreviations(e.g. Tory, LibDem, SNP..),UK political phrases(e.g. red wall, hung parliament), economic terms (e.g. quantitive easing, austerity, furlough) consitutional terms (e.g. Westminster, Whitehall, Downing Street), specific policy area vocabulary (e.g. NHS, grammar schools), Brexit related terms, UK spelling variations
+        Handle party names and abbreviations (e.g. Tory, LibDem, SNP..),UK political phrases(e.g. red wall, hung parliament), economic terms (e.g. quantitive easing, austerity, furlough) consitutional terms (e.g. Westminster, Whitehall, Downing Street), specific policy area vocabulary (e.g. NHS, grammar schools), Brexit related terms, UK spelling variations
         Preserve hyphenated compounds (e.g. "middle-income", "post-Brexit", "anti-Semitism", "pro-European")
         Segment for policy areas: NHS (e.g."Junior doctors", "waiting lists", "Privatisation"); education (e.g. "T-levels", "free schools", "tuition fees"); housing: (e.g."Section 21", "leasehold reform", "Right to Buy"); defence (e.g."Trident renewal", "two-carrier strategy")
-        Preserve acronyms, e.g. ("PMQs", "FoM", "ERG", "DUP", "PFI")
+        Preserve acronyms (e.g."PMQs", "FoM", "ERG", "DUP", "PFI")
         Find patterns for Political collocations (e.g"public services", "working families"), ideological phrases( e.g."social justice", "free market"), crisis terminology (e.g"cost of living", "housing crisis")
         Handle parliamentary jargon such as procedural terms (e.g. "reading", "amendment", , "whip", "backbench", "frontbench"), specific titles and roles (e.g."Right Honourable", "Prime Minister", "Chancellor", "Secretary of State", "Shadow", "Chief Whip", "Leader of the Opposition", "Backbencher", "Sinn Féin abstention") and formal address (e.g. "Mr Speaker", "Madam Deputy Speaker", "honourable member", "right hon"); debate phrases(e.g."point of order", "unparliamentary language", "division bell"); voting/legislation terms (e.g."free vote", "three-line whip", "statutory instrument", "Henry VIII powers")
-"""
+    """
+    
+    
