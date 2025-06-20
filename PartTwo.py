@@ -89,3 +89,16 @@ def vectorise_data():
     print(y_test.value_counts())
     
     return x_train, x_test, y_train, y_test, vectoriser
+
+#c
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
+from sklearn.metrics import classification_report, f1_score
+
+
+def train_evaluate_models():
+    try:
+        # Initialise models
+        randomforest = RandomForestClassifier(n_estimators=300, random_state=26)
+        SVM = SVC(kernel='linear', random_state=26)
+        

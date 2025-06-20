@@ -47,7 +47,10 @@ https://www.capitalone.com/tech/machine-learning/scikit-tfidf-implementation/
 https://www.geeksforgeeks.org/machine-learning/how-to-implement-stratified-sampling-with-scikit-learn/ 
 http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html
 
-2c. 
+2c. https://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVC.html
+https://scikit-learn.org/stable/modules/ensemble.html#forest
+https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html
+https://scikit-learn.org/stable/modules/generated/sklearn.metrics.classification_report.html
 
 2d. 
 
