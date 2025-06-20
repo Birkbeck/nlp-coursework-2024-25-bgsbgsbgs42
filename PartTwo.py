@@ -176,4 +176,16 @@ from tokenizers import normalizers
 from tokenizers.normalizers import NFKC
 
 def custom_tokeniser_political_speeches(text):
-    
+    """
+    The tokeniser must:
+        Preserve political and ideological vocabulary (e.g. "freedom", "security", "tax", "immigration")
+        Remove stopwords and meaningless fillers (e.g. "uh", "applause")
+        Lemmatize words to group related forms ("running" → "run")
+        Retain named entities (like "United States", "European Union")
+        Filter by part-of-speech to keep nouns, verbs, adjectives (important for meaning)
+        Include unigrams, bigrams and trigrams (like "tax cuts", "climate change")
+        Handle party names and abbreviations(e.g. Tory, LibDem, SNP..),UK political phrases(e.g. red wall, hung parliament), economic terms (e.g. quantitive easing, austerity, furlough) consitutional terms (e.g. Westminster, Whitehall, Downing Street), specific policy area vocabulary (e.g. NHS, grammar schools), Brexit related terms, UK spelling variations
+        Preserve hyphenated compounds
+        Find patterns for Political collocations (e.g"public services", "working families"), ideological phrases( e.g."social justice", "free market"), crisis terminology (e.g"cost of living", "housing crisis")
+        Handle parliamentary jargon such as procedural terms (e.g. "reading", "amendment", , "whip", "backbench", "frontbench"), specific titles and roles (e.g."Right Honourable", "Prime Minister", "Chancellor", "Secretary of State", "Shadow") and formal address (e.g. "Mr Speaker", "Madam Deputy Speaker", "honourable member", "right hon")
+        """
