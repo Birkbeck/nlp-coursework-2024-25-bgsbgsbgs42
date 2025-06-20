@@ -39,7 +39,8 @@ https://stackoverflow.com/questions/32724867/python-getting-the-count-for-the-ad
 - 
 
 
-2a. 
+2a. https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rename.html 
+https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.nlargest.html 
 
 2b.
 
