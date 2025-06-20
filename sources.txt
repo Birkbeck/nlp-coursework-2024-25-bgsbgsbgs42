@@ -74,6 +74,7 @@ https://www.geeksforgeeks.org/nlp/how-wordpiece-tokenization-addresses-the-rare-
 https://yashvaantlakham73.medium.com/unlocking-precision-in-nlp-with-tailored-solutions-562c79e5e738
 https://www.marktechpost.com/2025/02/16/a-step-by-step-guide-to-setting-up-a-custom-bpe-tokenizer-with-tiktoken-for-advanced-nlp-applications-in-python/
 https://colab.research.google.com/drive/1ZoNFwFAeB8UFBLYhwoZnovVuMKZCo4C4
+https://alvinntnu.github.io/python-notes/nlp/text-normalization-eng.html
 
 2f.
 

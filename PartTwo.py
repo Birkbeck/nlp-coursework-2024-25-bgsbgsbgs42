@@ -168,19 +168,16 @@ def second_vectorise_class_report():
 
 #e
 #Importing the dependencies 
-from tokenizers import Tokenizer
-from tokenizers.models import BPE
-from tokenizers.trainers import BpeTrainer
-from tokenizers.pre_tokenizers import Whitespace
-from tokenizers import normalizers
-from tokenizers.normalizers import NFKC
+import re
+import spacy
+from typing import List, Dict, Set
 
 def custom_tokeniser_political_speeches(text:str) -> list[str]:
     """
     The tokeniser must:
         Preserve political and ideological vocabulary (e.g. "freedom", "security", "tax", "immigration"), especially across the left/right spectrum ( e.g. "socialism", "neoliberalism", "one-nation conservatism", "Blairism") and value specific phrases (e.g."equality", "sovereignty", "libertarian", "populism")
         Remove stopwords and meaningless fillers (e.g. "uh", "applause") and drop filler words (e.g."erm", "hear hear", "interruption") and overly frequent non-discriminatory/ambigous terms (e.g."country", "people").
-        Lemmatize words to group related forms ("running" becomes "run")
+        Lemmatise words to group related forms ("running" becomes "run")
         Retain named entities (like "United States", "European Union") and Institutions (e.g."House of Lords", "First Past the Post", "Devolution", "Supreme Court",) as well as historical references (e.g. "Winter of Discontent", "New Labour", "Coalition Government")
         Filter by part-of-speech to keep nouns, verbs, adjectives 
         Include unigrams, bigrams and trigrams (like "tax cuts", "climate change") especially for political slogans (e.g."Take Back Control", "Levelling Up", "Strong and Stable") and media frames (e.g "sleaze allegations", "partygate", "Peston interview")
@@ -199,7 +196,6 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
         text to lowercase (preserving NER)
         filler word cleaning (e.g. "erm", "uhm", "you know")
     2. UK political term normalisation: 
-        normalise UK spelling variations (UK -> US spelling)
         normalise party names and political terms
         acronym expansion (PMQs -> prime_ministers_questions)
     3. spaCy processing (lemmatisation, POS, NER)
@@ -211,10 +207,10 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
         protect hyphenated political terms by temporarily replacing hyphens (making them single tokens)
         preserve multi-word phrases (e.g. house of commons)
         define important political phrases to preserve as single tokens
-        restore preserved phrases (hyphenated terms and political phrases)
     5. N-gram extraction
     6. Final filtering and output
         combine all tokens 
+        restore preserved phrases (hyphenated terms and political phrases)
         convert placeholders back to underscored token
         remove duplicates while preserving order (deduplication)
         ensure all tokens meet minimum length requirements
