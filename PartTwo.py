@@ -175,7 +175,7 @@ from tokenizers.pre_tokenizers import Whitespace
 from tokenizers import normalizers
 from tokenizers.normalizers import NFKC
 
-def custom_tokeniser_political_speeches(text):
+def custom_tokeniser_political_speeches(text:str) -> list[str]:
     """
     The tokeniser must:
         Preserve political and ideological vocabulary (e.g. "freedom", "security", "tax", "immigration"), especially across the left/right spectrum ( e.g. "socialism", "neoliberalism", "one-nation conservatism", "Blairism") and value specific phrases (e.g."equality", "sovereignty", "libertarian", "populism")
@@ -190,6 +190,37 @@ def custom_tokeniser_political_speeches(text):
         Preserve acronyms (e.g."PMQs", "FoM", "ERG", "DUP", "PFI")
         Find patterns for Political collocations (e.g"public services", "working families"), ideological phrases( e.g."social justice", "free market"), crisis terminology (e.g"cost of living", "housing crisis")
         Handle parliamentary jargon such as procedural terms (e.g. "reading", "amendment", , "whip", "backbench", "frontbench"), specific titles and roles (e.g."Right Honourable", "Prime Minister", "Chancellor", "Secretary of State", "Shadow", "Chief Whip", "Leader of the Opposition", "Backbencher", "Sinn Féin abstention") and formal address (e.g. "Mr Speaker", "Madam Deputy Speaker", "honourable member", "right hon"); debate phrases(e.g."point of order", "unparliamentary language", "division bell"); voting/legislation terms (e.g."free vote", "three-line whip", "statutory instrument", "Henry VIII powers")
+   
+    ingests -> text (corpus of political texts)
+    outputs -> list of tokens
+   
+   Steps:
+    1. Text normalisation and cleaning and remove common parliamentary fillers
+        text to lowercase (preserving NER)
+        filler word cleaning (e.g. "erm", "uhm", "you know")
+    2. UK political term normalisation: 
+        normalise UK spelling variations (UK -> US spelling)
+        normalise party names and political terms
+        acronym expansion (PMQs -> prime_ministers_questions)
+    3. spaCy processing (lemmatisation, POS, NER)
+        capture politicians, organisations, locations as prefixed tokens (named entitiy extraction)
+        apply lemmatisation, POS tagging, and named entity recognition
+        keep only NOUN, VERB, ADJ, PROPN 
+        remove general + political stopwords but preserve key pronouns
+    4. Political vocabulary preservation
+        protect hyphenated political terms by temporarily replacing hyphens (making them single tokens)
+        preserve multi-word phrases (e.g. house of commons)
+        define important political phrases to preserve as single tokens
+        restore preserved phrases (hyphenated terms and political phrases)
+    5. N-gram extraction
+    6. Final filtering and output
+        combine all tokens 
+        convert placeholders back to underscored token
+        remove duplicates while preserving order (deduplication)
+        ensure all tokens meet minimum length requirements
+        return list of processed tokens
+        
+
     """
     
     
