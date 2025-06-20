@@ -70,8 +70,16 @@ def fk_level(text, d):
             # Ensure at least one syllable
             syllable_count = max(1, syllable_count)
             total_syllables += syllable_count
-  
+            
+    # Calculate Flesch-Kincaid Grade Level
+    if total_sentences == 0 or total_words == 0:
+        return 0.0  # Avoid division by zero errors
 
+    avg_words_per_sentence = total_words / total_sentences
+    avg_syllables_per_word = total_syllables / total_words
+    
+    fk_score = (0.39 * avg_words_per_sentence) + (11.8 * avg_syllables_per_word) - 15.59
+    return fk_score
 
 def count_syl(word, d):
     """Counts the number of syllables in a word given a dictionary of syllables per word.
