@@ -255,4 +255,12 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
     with open('phrasesinbritishpolitics.txt', 'r') as f:
         key_phrases = set(line.strip().lower() for line in f)
         
-   
+   # Define stopwords to remove
+    political_stopwords = {
+        'people', 'country', 'nation', 'government', 'party', 'member', 'members',
+        'house', 'parliament', 'committee', 'minister', 'today', 'yesterday',
+        'think', 'believe', 'say', 'said', 'tell', 'know', 'want', 'need',
+        'time', 'year', 'years', 'way', 'make', 'take', 'come', 'go',
+        'get', 'see', 'look', 'give', 'work', 'good', 'great', 'important'
+    }
+    
