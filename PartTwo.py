@@ -264,3 +264,15 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
         'get', 'see', 'look', 'give', 'work', 'good', 'great', 'important'
     }
     
+    standard_stopwords = {'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 
+                         'to', 'for', 'of', 'with', 'by', 'is', 'are', 'was', 
+                         'were', 'be', 'been', 'being', 'have', 'has', 'had', 
+                         'do', 'does', 'did', 'will', 'would', 'could', 'should', 
+                         'may', 'might', 'must', 'can', 'this', 'that', 'these', 
+                         'those', 'i', 'you', 'he', 'she', 'it', 'we', 'they', 
+                         'me', 'him', 'her', 'us', 'them', 'my', 'your', 'his', 
+                         'her', 'its', 'our', 'their'}
+    
+    all_stopwords = standard_stopwords.union(political_stopwords)
+    keep_pronouns = {'we', 'our', 'they', 'them', 'their', 'us'}
+    all_stopwords = all_stopwords - keep_pronouns
