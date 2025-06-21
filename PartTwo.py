@@ -276,3 +276,57 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
     all_stopwords = standard_stopwords.union(political_stopwords)
     keep_pronouns = {'we', 'our', 'they', 'them', 'their', 'us'}
     all_stopwords = all_stopwords - keep_pronouns
+    
+    
+    #Processing with spaCy
+    doc = nlp(text.lower())
+    
+    processed_tokens = []
+    
+    # Identifying named entities and key phrases
+    entities = [ent.text.lower().replace(' ', '_') for ent in doc.ents]
+    spans = list(doc.ents) + list(doc.noun_chunks)
+    
+    # Store the spans to protect them from being split
+    protected_spans = []
+    for span in spans:
+        span_text = span.text.lower().replace(' ', '_')
+        if any(phrase in span.text.lower() for phrase in key_phrases):
+            protected_spans.append(span_text)
+            
+     # Pass again for token processing
+    for token in doc:
+        # Skip the stopwords
+        if token.text in all_stopwords:
+            continue
+            
+        # Skip the punctuation
+        if token.is_punct:
+            continue
+            
+        # Check if the token is part of a protected span
+        in_protected_span = False
+        for span in protected_spans:
+            if token.text in span:
+                in_protected_span = True
+                break
+                
+        if in_protected_span:
+            continue
+            
+        # Only keep nouns, verbs, adjectives, and proper nouns
+        if token.pos_ not in {'NOUN', 'VERB', 'ADJ', 'PROPN'}:
+            continue
+            
+        # Lemmatise (except for proper nouns and political terms)
+        if token.text not in key_words and token.pos_ != 'PROPN':
+            lemma = token.lemma_
+        else:
+            lemma = token.text
+            
+        # Add processed token
+        processed_tokens.append(lemma)
+    
+    # Add protected spans and entities
+    processed_tokens.extend(protected_spans)
+    processed_tokens.extend(entities)

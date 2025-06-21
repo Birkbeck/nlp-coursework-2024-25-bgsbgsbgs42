@@ -19,7 +19,9 @@
     "\\btransition period\\b": "brexit_transition",
     "\\bsingle market\\b": "eu_single_market",
     "\\bchequers plan\\b": "chequers_agreement",
-    "\\bmeaningful vote\\b": "parliamentary_approval_brexit"
+    "\\bmeaningful vote\\b": "parliamentary_approval_brexit",
+    "r'\\bcustoms union\\b'": "eu_customs_union",
+    "r'\\barticle 50\\b'": "eu_withdrawal_process"
   },
   
   "parliamentary_terms": {
@@ -33,6 +35,7 @@
     "\\btriple lock\\b": "pension_triple_lock",
     "\\bfmqs?\\b": "first_ministers_questions",
     "\\bsis?\\b": "statutory_instruments"
+    
   },
   
   "government_locations": {
@@ -49,7 +52,9 @@
     "\\bcouncil tax\\b": "local_tax",
     "\\bnational insurance\\b": "national_insurance",
     "\\buniversal credit\\b": "universal_credit",
-    "\\bgrammar schools?\\b": "selective_education"
+    "\\bgrammar schools?\\b": "selective_education",
+    "r'\\btriple lock\\b'": "pension_triple_lock",
+    "r'\\bfurlough\\b'": "coronavirus_job_retention_scheme"
   },
   
   "acronyms_eu": {
@@ -87,6 +92,13 @@
     "\\bpfi\\b": "private_finance_initiative",
     "\\buc\\b": "universal_credit"
   },
+
+  "regional": {
+        "r'\\bholyrood\\b'": "scottish_parliament",
+        "r'\\bsenedd\\b'": "welsh_parliament",
+        "r'\\bstormont\\b'": "northern_ireland_assembly",
+        "r'\\bgood friday agreement\\b'": "belfast_agreement"
+    },
   
   "political_concepts": {
     "\\bblue wall\\b": "conservative_heartlands",
