@@ -221,3 +221,16 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
     
     # Load spaCy's English model
     nlp = spacy.load("en_core_web_sm")
+    
+    #Preprocessing, begininng with potentially hyphenated terms 
+    
+    hyphenated_terms = [
+        'anti-european', 'pro-european', 'post-brexit', 'pre-brexit',
+        'middle-income', 'low-income', 'high-income', 'working-class',
+        'anti-semitism', 'anti-immigrant', 'pro-business', 'cross-party',
+        'long-term', 'short-term', 'medium-term', 'hard-working',
+        'co-operation', 'co-ordination', 'self-determination', 'nation-building'
+    ] 
+    
+    for term in hyphenated_terms:
+        text = text.replace(term, term.replace('-', '_'))
