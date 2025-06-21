@@ -224,7 +224,15 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
     # Load spaCy's English model
     nlp = spacy.load("en_core_web_sm")
     
-    # Preprocessing, begininng with potentially hyphenated terms 
+    #Store original text 
+    original_text = text
+    
+    # Preprocessing, begininng with potentially hyphenated terms and removing fillers
+    
+    text = re.sub(r'\[(?:applause|laughter|interruption|hear hear)\]', ' ', text, flags=re.IGNORECASE)
+    text = re.sub(r'\b(?:erm|uhm|uh|you know)\b', ' ', text, flags=re.IGNORECASE)
+    
+    text = text.lower()
     
     hyphenated_terms = [
         'anti-european', 'pro-european', 'post-brexit', 'pre-brexit',
@@ -238,22 +246,30 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
         text = text.replace(term, term.replace('-', '_'))
         
     # Normalising political terms, acronyms, abbreviations, and party names
-    
-    with open('political_terms.json') as f:
-        normalisations = json.load(f)
+    try:
+        with open('political_terms.json') as f:
+            normalisations = json.load(f)
 
-    # Converting string patterns to compiled regex
-    compiled_patterns = {}
-    for cat in normalisations:
-        for pattern, replacement in normalisations[cat].items():
-            compiled_patterns[re.compile(pattern)] = replacement
+        # Converting string patterns to compiled regex
+        compiled_patterns = {}
+        for cat in normalisations:
+            for pattern, replacement in normalisations[cat].items():
+                compiled_patterns[re.compile(pattern)] = replacement
+    
+    except FileNotFoundError:
+        print("Warning: political_terms.json not found, skipping normalisations")
+        normalisations = {}
             
     # Load key political phrases and terms from .txt files
+    try:
+        with open('wordsinbritishpolitics.txt', 'r') as f:
+            key_words = set(line.strip().lower() for line in f)
+        with open('phrasesinbritishpolitics.txt', 'r') as f:
+            key_phrases = set(line.strip().lower() for line in f)
     
-    with open('wordsinbritishpolitics.txt', 'r') as f:
-        key_words = set(line.strip().lower() for line in f)
-    with open('phrasesinbritishpolitics.txt', 'r') as f:
-        key_phrases = set(line.strip().lower() for line in f)
+    except FileNotFoundError:
+        print("Warning: Political vocabulary files not found")
+        key_words, key_phrases = set(), set()
         
    # Define stopwords to remove
     political_stopwords = {
@@ -279,13 +295,19 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
     
     
     #Processing with spaCy
-    doc = nlp(text.lower())
+    doc_original = nlp(original_text)
+    doc_processed = nlp(text)
     
     processed_tokens = []
     
     # Identifying named entities and key phrases
-    entities = [ent.text.lower().replace(' ', '_') for ent in doc.ents]
-    spans = list(doc.ents) + list(doc.noun_chunks)
+    named_entities = []
+    for ent in doc_original.ents:
+        if ent.label_ in ['PERSON', 'ORG', 'GPE', 'NORP', 'EVENT', 'LAW']:
+            entity_text = ent.text.lower().replace(' ', '_')
+            named_entities.append(f"NE_{entity_text}")
+            
+        spans = list(doc_processed.ents) + list(doc_processed.noun_chunks)
     
     # Store the spans to protect them from being split
     protected_spans = []
@@ -295,7 +317,7 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
             protected_spans.append(span_text)
             
      # Pass again for token processing
-    for token in doc:
+    for token in doc_processed:
         # Skip the stopwords
         if token.text in all_stopwords:
             continue
@@ -329,4 +351,39 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
     
     # Add protected spans and entities
     processed_tokens.extend(protected_spans)
-    processed_tokens.extend(entities)
+    processed_tokens.extend(named_entities)
+    
+    # Post - processing
+    
+    # Removing any empty tokens which remain
+    processed_tokens = [token for token in processed_tokens if token.strip()]
+    
+    # Remove duplicates while preserving order (deduplication)
+    seen = set()
+    unique_tokens = []
+    for token in processed_tokens:
+        if token not in seen:
+            seen.add(token)
+            unique_tokens.append(token) 
+            
+        # Add n-grams for political collocations
+        bigrams = [
+            f"{final_tokens[i]}_{final_tokens[i+1]}" 
+            for i in range(len(final_tokens)-1)
+        ]
+        
+        trigrams = [
+            f"{final_tokens[i]}_{final_tokens[i+1]}_{final_tokens[i+2]}" 
+            for i in range(len(final_tokens)-2)
+    ]
+    
+    filtered_ngrams = [ngram for ngram in bigrams + trigrams]
+
+    # Convert protected underscores back to hyphens where appropriate
+    final_tokens = []
+    for token in unique_tokens:
+        if any(term.replace('-', '_') in token for term in hyphenated_terms):
+            token = token.replace('_', '-')
+        final_tokens.append(token)
+    
+    return final_tokens + filtered_ngrams
