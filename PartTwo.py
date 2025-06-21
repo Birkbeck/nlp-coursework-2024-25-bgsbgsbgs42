@@ -170,7 +170,9 @@ def second_vectorise_class_report():
 #Importing the dependencies 
 import re
 import spacy
+import json 
 from typing import List, Dict, Set
+
 
 def custom_tokeniser_political_speeches(text:str) -> list[str]:
     """
@@ -222,7 +224,7 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
     # Load spaCy's English model
     nlp = spacy.load("en_core_web_sm")
     
-    #Preprocessing, begininng with potentially hyphenated terms 
+    # Preprocessing, begininng with potentially hyphenated terms 
     
     hyphenated_terms = [
         'anti-european', 'pro-european', 'post-brexit', 'pre-brexit',
@@ -234,3 +236,23 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
     
     for term in hyphenated_terms:
         text = text.replace(term, term.replace('-', '_'))
+        
+    # Normalising political terms, acronyms, abbreviations, and party names
+    
+    with open('political_terms.json') as f:
+        normalisations = json.load(f)
+
+    # Converting string patterns to compiled regex
+    compiled_patterns = {}
+    for cat in normalisations:
+        for pattern, replacement in normalisations[cat].items():
+            compiled_patterns[re.compile(pattern)] = replacement
+            
+    # Load key political phrases and terms from .txt files
+    
+    with open('wordsinbritishpolitics.txt', 'r') as f:
+        key_words = set(line.strip().lower() for line in f)
+    with open('phrasesinbritishpolitics.txt', 'r') as f:
+        key_phrases = set(line.strip().lower() for line in f)
+        
+   
