@@ -1,0 +1,96 @@
+{
+  "party_names": {
+    "\\btories\\b": "conservative",
+    "\\btory\\b": "conservative", 
+    "\\blib dems?\\b": "liberal_democrat",
+    "\\bliberal democrats?\\b": "liberal_democrat",
+    "\\bsnp\\b": "scottish_national_party",
+    "\\bplaid cymru\\b": "plaid_cymru",
+    "\\bukip\\b": "uk_independence_party",
+    "\\bdup\\b": "democratic_unionist_party",
+    "\\bnew labour\\b": "new_labour",
+    "\\bgreen party\\b": "green_party",
+    "\\breform uk\\b": "reform_uk"
+  },
+  
+  "brexit_terms": {
+    "\\bbackstop\\b": "northern_ireland_protocol",
+    "\\bno deal\\b": "no_deal_brexit",
+    "\\btransition period\\b": "brexit_transition",
+    "\\bsingle market\\b": "eu_single_market",
+    "\\bchequers plan\\b": "chequers_agreement",
+    "\\bmeaningful vote\\b": "parliamentary_approval_brexit"
+  },
+  
+  "parliamentary_terms": {
+    "\\bpmqs?\\b": "prime_ministers_questions",
+    "\\bqueens speech\\b": "kings_speech",
+    "\\bmoney bill\\b": "finance_bill",
+    "\\bstatutory instrument\\b": "secondary_legislation",
+    "\\bthe other place\\b": "house_of_lords",
+    "\\bprivy council\\b": "privy_council",
+    "\\bmps?\\b": "member_of_parliament",
+    "\\btriple lock\\b": "pension_triple_lock",
+    "\\bfmqs?\\b": "first_ministers_questions",
+    "\\bsis?\\b": "statutory_instruments"
+  },
+  
+  "government_locations": {
+    "\\bwestminster\\b": "uk_parliament",
+    "\\bwhitehall\\b": "uk_government", 
+    "\\bdowning street\\b": "prime_minister_office",
+    "\\bhouse of commons\\b": "house_of_commons",
+    "\\blords\\b": "house_of_lords",
+    "\\bdevo(?:max|lution)\\b": "devolution"
+  },
+  
+  "policy_areas": {
+    "\\bnhs\\b": "national_health_service",
+    "\\bcouncil tax\\b": "local_tax",
+    "\\bnational insurance\\b": "national_insurance",
+    "\\buniversal credit\\b": "universal_credit",
+    "\\bgrammar schools?\\b": "selective_education"
+  },
+  
+  "acronyms_eu": {
+    "\\bfom\\b": "freedom_of_movement",
+    "\\becj\\b": "european_court_of_justice",
+    "\\beea\\b": "european_economic_area",
+    "\\befta\\b": "european_free_trade_association",
+    "\\beu\\b": "european_union",
+    "\\berg\\b": "european_research_group"
+  },
+  
+  "government_departments": {
+    "\\bbeis\\b": "department_business_energy_industrial_strategy",
+    "\\bdfe\\b": "department_for_education",
+    "\\bdwp\\b": "department_work_pensions",
+    "\\bmoj\\b": "ministry_of_justice",
+    "\\bfcdo\\b": "foreign_commonwealth_development_office",
+    "\\bmod\\b": "ministry_of_defence",
+    "\\bmhclg\\b": "ministry_housing_communities_local_government"
+  },
+  
+  "public_bodies": {
+    "\\bons\\b": "office_for_national_statistics",
+    "\\bofsted\\b": "office_for_standards_in_education",
+    "\\bgchq\\b": "government_communications_headquarters",
+    "\\bhmrc\\b": "hm_revenue_customs",
+    "\\boecd\\b": "organisation_economic_cooperation_development"
+  },
+  
+  "economic_terms": {
+    "\\bqe\\b": "quantitative_easing",
+    "\\bvat\\b": "value_added_tax",
+    "\\bcpi\\b": "consumer_price_index",
+    "\\brpi\\b": "retail_price_index",
+    "\\bpfi\\b": "private_finance_initiative",
+    "\\buc\\b": "universal_credit"
+  },
+  
+  "political_concepts": {
+    "\\bblue wall\\b": "conservative_heartlands",
+    "\\bred wall\\b": "labour_heartlands", 
+    "\\bpace\\b": "police_and_criminal_evidence_act"
+  }
+}

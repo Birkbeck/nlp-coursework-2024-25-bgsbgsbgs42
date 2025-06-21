@@ -185,7 +185,7 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
         Preserve hyphenated compounds (e.g. "middle-income", "post-Brexit", "anti-Semitism", "pro-European")
         Segment for policy areas: NHS (e.g."Junior doctors", "waiting lists", "Privatisation"); education (e.g. "T-levels", "free schools", "tuition fees"); housing: (e.g."Section 21", "leasehold reform", "Right to Buy"); defence (e.g."Trident renewal", "two-carrier strategy")
         Preserve acronyms (e.g."PMQs", "FoM", "ERG", "DUP", "PFI")
-        Find patterns for Political collocations (e.g"public services", "working families"), ideological phrases( e.g."social justice", "free market"), crisis terminology (e.g"cost of living", "housing crisis")
+        Find patterns for Political collocations (e.g "public services", "working families"), ideological phrases( e.g."social justice", "free market"), crisis terminology (e.g"cost of living", "housing crisis")
         Handle parliamentary jargon such as procedural terms (e.g. "reading", "amendment", , "whip", "backbench", "frontbench"), specific titles and roles (e.g."Right Honourable", "Prime Minister", "Chancellor", "Secretary of State", "Shadow", "Chief Whip", "Leader of the Opposition", "Backbencher", "Sinn Féin abstention") and formal address (e.g. "Mr Speaker", "Madam Deputy Speaker", "honourable member", "right hon"); debate phrases(e.g."point of order", "unparliamentary language", "division bell"); voting/legislation terms (e.g."free vote", "three-line whip", "statutory instrument", "Henry VIII powers")
    
     ingests -> text (corpus of political texts)
