@@ -92,7 +92,32 @@ def count_syl(word, d):
     Returns:
         int: The number of syllables in the word.
     """
-    pass
+    word = word.lower()
+    
+    if word in d:
+        pronunciation = d[word][0]
+        return sum(1 for phoneme in pronunciation if phoneme[-1].isdigit())
+    
+    #In case the word is not in the CMU dict
+    vowels = "aeiouy"
+    syllable_count = 0
+    prev_char_was_vowel = False
+    
+    # Counting the vowel clusters
+    for char in word:
+        if char in vowels:
+            if not prev_char_was_vowel:
+                syllable_count += 1
+            prev_char_was_vowel = True
+        else:
+            prev_char_was_vowel = False
+    
+    # Adjusting for a silent e at end
+    if word.endswith('e') and syllable_count > 1:
+        syllable_count -= 1
+    
+    # Ensuring at least one syllable is counted
+    return max(1, syllable_count)
 
 #Import pandas 
 import pandas as pd
