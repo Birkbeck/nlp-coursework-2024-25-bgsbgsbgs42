@@ -391,10 +391,24 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
     # Converting back underscores to hyphens for hyphenated terms
     result = []
     for token in target_output:
-        # Checking if this should be a hyphenated term
+        # Checking if term should be a hyphenated term
         if any(term.replace('-', '_') == token for term in hyphenated_terms):
             result.append(token.replace('_', '-'))
         else:
             result.append(token)
     
     return result
+
+
+if __name__ == "__main__":
+    print("Running data processing...")
+    data_processing()
+    
+    print("\nRunning vectorisation...")
+    x_train, x_test, y_train, y_test, vectoriser = vectorise_data()
+    
+    print("\nTraining and evaluating models...")
+    results = train_evaluate_models(x_train, x_test, y_train, y_test)
+    
+    print("\nRunning second vectorisation with n-grams...")
+    second_vectorise_class_report()
