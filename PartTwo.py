@@ -412,3 +412,11 @@ if __name__ == "__main__":
     
     print("\nRunning second vectorisation with n-grams...")
     second_vectorise_class_report()
+    
+    print("\nTesting custom tokenizer...")
+    
+    #Testing the tokensier function with a speech from the Part Two texts
+    sample_speech = """"We rightly took a decision to suspend face-to-face assessments following Public Health England’s guidance. We continue to keep this under review, but wherever possible, we are either doing a paper-based review or a telephone assessment, and we are automatically renewing reassessments that are due within three months by six months, and we review that on a regular basis."""
+    tokens = custom_tokeniser_political_speeches(sample_speech)
+    print("\nSample speech tokens:")
+    print(tokens)
