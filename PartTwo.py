@@ -172,7 +172,9 @@ import re
 import spacy
 import json 
 from typing import List, Dict, Set
+import nltk
 
+nltk.download('stopwords')
 
 def custom_tokeniser_political_speeches(text:str) -> list[str]:
     """
