@@ -309,24 +309,24 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
             
         spans = list(doc_processed.ents) + list(doc_processed.noun_chunks)
     
-    # Store the spans to protect them from being split
+    # Storing the spans to protect them from being split
     protected_spans = []
     for span in spans:
         span_text = span.text.lower().replace(' ', '_')
         if any(phrase in span.text.lower() for phrase in key_phrases):
             protected_spans.append(span_text)
             
-     # Pass again for token processing
+     # Passing again for token processing
     for token in doc_processed:
-        # Skip the stopwords
+        # Skipping the stopwords
         if token.text in all_stopwords:
             continue
             
-        # Skip the punctuation
+        # Skipping the punctuation
         if token.is_punct:
             continue
             
-        # Check if the token is part of a protected span
+        # Checking if the token is part of a protected span
         in_protected_span = False
         for span in protected_spans:
             if token.text in span:
@@ -336,7 +336,7 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
         if in_protected_span:
             continue
             
-        # Only keep nouns, verbs, adjectives, and proper nouns
+        # Only keeping nouns, verbs, adjectives, and proper nouns
         if token.pos_ not in {'NOUN', 'VERB', 'ADJ', 'PROPN'}:
             continue
             
@@ -346,27 +346,27 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
         else:
             lemma = token.text
             
-        # Add processed token
+        # Adding processed token
         processed_tokens.append(lemma)
     
-    # Add protected spans and entities
+    # Adding protected spans and entities
     processed_tokens.extend(protected_spans)
     processed_tokens.extend(named_entities)
     
-    # Post - processing
-    
+    # Post-processing
     # Removing any empty tokens which remain
     processed_tokens = [token for token in processed_tokens if token.strip()]
     
-    # Remove duplicates while preserving order (deduplication)
+    # Removing duplicates while preserving order (deduplication)
     seen = set()
     unique_tokens = []
+    final_tokens = []
     for token in processed_tokens:
         if token not in seen:
             seen.add(token)
             unique_tokens.append(token) 
-            
-        # Add n-grams for political collocations
+    
+        # Adding n-grams for political collocations
         bigrams = [
             f"{final_tokens[i]}_{final_tokens[i+1]}" 
             for i in range(len(final_tokens)-1)
@@ -379,11 +379,22 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
     
     filtered_ngrams = [ngram for ngram in bigrams + trigrams]
 
-    # Convert protected underscores back to hyphens where appropriate
-    final_tokens = []
+    # Converting protected underscores back to hyphens where appropriate
+    
     for token in unique_tokens:
         if any(term.replace('-', '_') in token for term in hyphenated_terms):
             token = token.replace('_', '-')
         final_tokens.append(token)
     
-    return final_tokens + filtered_ngrams
+    target_output = final_tokens + filtered_ngrams
+    
+    # Converting back underscores to hyphens for hyphenated terms
+    result = []
+    for token in target_output:
+        # Checking if this should be a hyphenated term
+        if any(term.replace('-', '_') == token for term in hyphenated_terms):
+            result.append(token.replace('_', '-'))
+        else:
+            result.append(token)
+    
+    return result
