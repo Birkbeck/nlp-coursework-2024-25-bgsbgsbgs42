@@ -221,10 +221,10 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
 
     """
     
-    # Load spaCy's English model
+    # Loading spaCy's English model
     nlp = spacy.load("en_core_web_sm")
     
-    #Store original text 
+    #Storing the original text 
     original_text = text
     
     # Preprocessing, begininng with potentially hyphenated terms and removing fillers
@@ -260,7 +260,7 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
         print("Warning: political_terms.json not found, skipping normalisations")
         normalisations = {}
             
-    # Load key political phrases and terms from .txt files
+    # Loading key political phrases and terms from .txt files
     try:
         with open('wordsinbritishpolitics.txt', 'r') as f:
             key_words = set(line.strip().lower() for line in f)
@@ -271,7 +271,7 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
         print("Warning: Political vocabulary files not found")
         key_words, key_phrases = set(), set()
         
-   # Define stopwords to remove
+   # Defining the stopwords to remove
     political_stopwords = {
         'people', 'country', 'nation', 'government', 'party', 'member', 'members',
         'house', 'parliament', 'committee', 'minister', 'today', 'yesterday',
