@@ -7,17 +7,18 @@ import spacy
 from pathlib import Path
 import os
 
-nlp = spacy.load('en_core_web_sm')
+nlp = spacy.load("en_core_web_sm")
 nlp.max_length = 2000000
 
 # Import dependencies 
 from nltk.corpus import cmudict
 
-d = cmudict.dict() 
 
 # Download required NLTK data
 nltk.download('punkt')
 nltk.download('cmudict')
+
+d = cmudict.dict()
 
 def fk_level(text, d):
     """Returns the Flesch-Kincaid Grade Level of a text (higher grade is more difficult).
