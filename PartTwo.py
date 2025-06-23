@@ -78,7 +78,7 @@ def vectorise_data():
     
     
     # Validating split sizes including for sparse matrices
-    if len(x_train) == 0 or len(x_test) == 0 or x_test.shape[0] == 0:
+    if  x_test.shape[0] == 0:
         raise ValueError("Empty train or test set after splitting")
     
     # Checking using getnnz()
@@ -151,7 +151,7 @@ def second_vectorise_class_report():
     x_train, x_test, y_train, y_test = train_test_split (x, y, test_size=0.2, random_state=26, stratify=y)
     
     # Validating split sizes including for sparse matrices
-    if len(x_train) == 0 or len(x_test) == 0 or x_test.shape[0] == 0:
+    if  x_test.shape[0] == 0:
         raise ValueError("Empty train or test set after splitting")
     
     # Checking using getnnz()
@@ -192,8 +192,6 @@ import spacy
 import json 
 from typing import List, Dict, Set
 import nltk
-
-nltk.download('stopwords')
 
 def custom_tokeniser_political_speeches(text:str) -> list[str]:
     """
