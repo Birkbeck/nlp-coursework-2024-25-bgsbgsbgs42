@@ -240,7 +240,7 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
     """
     
     # Loading spaCy's English model
-    nlp = spacy.load("en_core_web_sm")
+    nlp = spacy.load('en_core_web_sm')
     
     #Storing the original text 
     original_text = text

@@ -7,7 +7,7 @@ import spacy
 from pathlib import Path
 import os
 
-nlp = spacy.load("en_core_web_sm")
+nlp = spacy.load('en_core_web_sm')
 nlp.max_length = 2000000
 
 # Import dependencies 
