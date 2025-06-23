@@ -226,6 +226,8 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
     # Loading spaCy's English model
     nlp = spacy.load("en_core_web_sm")
     
+    
+    
     #Storing the original text 
     original_text = text
     
@@ -401,7 +403,31 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
     
     return result
 
+def run_with_custom_tokeniser():
+    # Loading and preprocessing the data
+    df = pd.read_csv('texts/hansard40000.csv')
+    
+    # Applying the same filters as in data_processing()
+    df = df[df['speech_class'] == 'Speech']
+    df = df[df['speech'].str.len() >= 1000]
+    
+    # Applying custom tokeniser
+    print("Applying custom tokeniser to speeches...")
+    df['processed_speech'] = df['speech'].apply(
+        lambda x: " ".join(custom_tokeniser_political_speeches(str(x))))
+    
+    # Temporarily replacing the original speeches with processed ones
+    original_speeches = df['speech'].copy()
+    df['speech'] = df['processed_speech']
+    
+    # Running the original vectorisation function
+    print("\nRunning vectorisation with custom tokenized speeches...")
+    x, y, vectoriser = second_vectorise_class_report()
+    
+    
+    return x, y, vectoriser
 
+# Main function run lines
 if __name__ == "__main__":
     print("Running data processing...")
     data_processing()
@@ -422,3 +448,5 @@ if __name__ == "__main__":
     tokens = custom_tokeniser_political_speeches(sample_speech)
     print("\nSample speech tokens:")
     print(tokens)
+    
+    x, y, vectoriser = run_with_custom_tokeniser()
