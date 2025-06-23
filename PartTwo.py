@@ -2,20 +2,20 @@
 import pandas as pd
 def data_processing():
     # Reading the CSV file
-    df = pd.read_csv('texts/hansard40000.csv')
+    df = pd.read_csv('hansard40000.csv')
     
     #Checking the df is not empty
     if df.empty:
         raise ValueError("Empty dataframe loaded")
     
     #Checking required colums are present
-    required_columns = {'Party', 'Speech', 'speech_class'}
+    required_columns = {'party', 'speech', 'speech_class'}
     if not required_columns.issubset(df.columns):
         missing = required_columns - set(df.columns)
         raise ValueError(f"Missing required columns: {missing}")
     
     #Checking 'Party' is column is present in df 
-    if 'Party' not in df.columns:
+    if 'party' not in df.columns:
         raise ValueError("'Party' column missing in dataframe")
 
 
@@ -57,7 +57,7 @@ from sklearn.model_selection import train_test_split
 # Fucntion for vectorising the speeches using TF-IDF
 def vectorise_data():
     # Reading the CSV file
-    df = pd.read_csv('texts/hansard40000.csv')
+    df = pd.read_csv('hansard40000.csv')
     
     vectoriser = TfidfVectorizer(stop_words='english', max_features=3000, min_df=5) # Error handling for edge cases of rare terms 
     x = vectoriser.fit_transform(df['speech'].astype(str))
@@ -123,7 +123,7 @@ def train_evaluate_models(x_train, x_test, y_train, y_test):
 # Function for second vectorisor with unigrams, bigrams and trigrams
 def second_vectorise_class_report():
     # Reading the CSV file
-    df = pd.read_csv('texts/hansard40000.csv')
+    df = pd.read_csv('hansard40000.csv')
     
     vectoriser = TfidfVectorizer(ngram_range=(1, 3),  stop_words='english', max_features=3000, min_df=5)
     x = vectoriser.fit_transform(df['speech'].astype(str))
@@ -398,7 +398,7 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
 
 def run_with_custom_tokeniser():
     # Loading and preprocessing the data
-    df = pd.read_csv('texts/hansard40000.csv')
+    df = pd.read_csv('hansard40000.csv')
     
     # Applying the same filters as in data_processing()
     df = df[df['speech_class'] == 'Speech']
