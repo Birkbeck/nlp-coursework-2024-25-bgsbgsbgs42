@@ -54,6 +54,7 @@ def data_processing():
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
+from scipy.sparse import issparse
 
 # Fucntion for vectorising the speeches using TF-IDF
 def vectorise_data():
@@ -65,7 +66,7 @@ def vectorise_data():
         df = df.dropna(subset=['party'])
 
     
-    vectoriser = TfidfVectorizer(stop_words='english', max_features=3000, min_df=5) # Error handling for edge cases of rare terms 
+    vectoriser = TfidfVectorizer(stop_words='english', max_features=3000,  min_df=5) # Error handling for edge cases of rare terms 
     x = vectoriser.fit_transform(df['speech'].astype(str))
     y = df['party']
     
@@ -79,6 +80,12 @@ def vectorise_data():
     # Validating split sizes including for sparse matrices
     if len(x_train) == 0 or len(x_test) == 0 or x_test.shape[0] == 0:
         raise ValueError("Empty train or test set after splitting")
+    
+    # Checking using getnnz()
+    if x_train.getnnz() == 0 or x_test.getnnz() == 0:
+        raise ValueError("Empty train or test set after splitting")
+                         
+    
     
     # Print out the class distributions
     print("Class distribution in the full dataset:")
@@ -136,7 +143,7 @@ def second_vectorise_class_report():
     if df['party'].isna().any():
         df = df.dropna(subset=['party'])
     
-    vectoriser = TfidfVectorizer(ngram_range=(1, 3),  stop_words='english', max_features=3000, min_df=5)
+    vectoriser = TfidfVectorizer(ngram_range=(1, 3),  stop_words='english', max_features=3000,  min_df=5)
     x = vectoriser.fit_transform(df['speech'].astype(str))
     y = df['party']
     
@@ -145,6 +152,10 @@ def second_vectorise_class_report():
     
     # Validating split sizes including for sparse matrices
     if len(x_train) == 0 or len(x_test) == 0 or x_test.shape[0] == 0:
+        raise ValueError("Empty train or test set after splitting")
+    
+    # Checking using getnnz()
+    if x_train.getnnz() == 0 or x_test.getnnz() == 0:
         raise ValueError("Empty train or test set after splitting")
     
     randomforest = RandomForestClassifier(n_estimators=300, random_state=26)

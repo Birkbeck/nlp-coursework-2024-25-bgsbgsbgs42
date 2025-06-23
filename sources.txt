@@ -48,6 +48,9 @@ https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.nlargest.html
 https://www.capitalone.com/tech/machine-learning/scikit-tfidf-implementation/
 https://www.geeksforgeeks.org/machine-learning/how-to-implement-stratified-sampling-with-scikit-learn/ 
 http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html
+https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csr_matrix.getnnz.html
+https://stackoverflow.com/questions/28314337/typeerror-sparse-matrix-length-is-ambiguous-use-getnnz-or-shape0-while-usi
+https://www.youtube.com/watch?v=RrB7hK9eU1M
 
 2c. https://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVC.html
 https://scikit-learn.org/stable/modules/ensemble.html#forest
