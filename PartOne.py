@@ -11,7 +11,7 @@ import os
 nlp = spacy.load("en_core_web_sm")
 nlp.max_length = 2000000
 
-#Import dependencies 
+# Import dependencies 
 from nltk.corpus import cmudict
 
 d = cmudict.dict() 

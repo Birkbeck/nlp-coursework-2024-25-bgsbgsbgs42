@@ -47,6 +47,7 @@ def data_processing():
     
     #Printing the dimensions of the resulting dataframe using df.shape
     print(df.shape)
+    return df
     
     
 #b 
@@ -304,7 +305,7 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
             entity_text = ent.text.lower().replace(' ', '_')
             named_entities.append(f"NE_{entity_text}")
             
-        spans = list(doc_processed.ents) + list(doc_processed.noun_chunks)
+    spans = list(doc_processed.ents) + list(doc_processed.noun_chunks)
     
     # Storing the spans to protect them from being split
     protected_spans = []
@@ -362,6 +363,9 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
         if token not in seen:
             seen.add(token)
             unique_tokens.append(token) 
+    
+    # Initialising final_tokens
+    final_tokens = unique_tokens.copy() 
     
         # Adding n-grams for political collocations
         bigrams = [
@@ -427,6 +431,7 @@ if __name__ == "__main__":
     
     print("\nRunning vectorisation...")
     x_train, x_test, y_train, y_test, vectoriser = vectorise_data()
+
     
     print("\nTraining and evaluating models...")
     results = train_evaluate_models(x_train, x_test, y_train, y_test)    
