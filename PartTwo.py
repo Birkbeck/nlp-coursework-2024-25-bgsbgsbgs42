@@ -75,8 +75,9 @@ def vectorise_data():
     # Splitting into the train and test sets with stratified sampling
     x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, random_state=26, shuffle=True, stratify=y)
     
-    # Validating split sizes
-    if len(x_train) == 0 or len(x_test) == 0:
+    
+    # Validating split sizes including for sparse matrices
+    if len(x_train) == 0 or len(x_test) == 0 or x_test.shape[0] == 0:
         raise ValueError("Empty train or test set after splitting")
     
     # Print out the class distributions
@@ -141,6 +142,10 @@ def second_vectorise_class_report():
     
     # Splitting the data
     x_train, x_test, y_train, y_test = train_test_split (x, y, test_size=0.2, random_state=26, stratify=y)
+    
+    # Validating split sizes including for sparse matrices
+    if len(x_train) == 0 or len(x_test) == 0 or x_test.shape[0] == 0:
+        raise ValueError("Empty train or test set after splitting")
     
     randomforest = RandomForestClassifier(n_estimators=300, random_state=26)
     SVM = SVC(kernel='linear', random_state=26)
