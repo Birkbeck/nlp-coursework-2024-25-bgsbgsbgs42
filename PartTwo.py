@@ -1,4 +1,3 @@
-#a
 import pandas as pd
 def data_processing():
     # Reading the CSV file
@@ -242,8 +241,6 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
     
     # Loading spaCy's English model
     nlp = spacy.load("en_core_web_sm")
-    
-    
     
     #Storing the original text 
     original_text = text
