@@ -1,6 +1,5 @@
 #a
 import pandas as pd
-
 def data_processing():
     # Reading the CSV file
     df = pd.read_csv('texts/hansard40000.csv')
@@ -68,13 +67,7 @@ def vectorise_data():
         raise ValueError("No documents could be vectorized")
     
     # Splitting into the train and test sets with stratified sampling
-    x_train, x_test, y_train, y_test = train_test_split(
-        x, y, 
-        train_size=0.8, 
-        random_state=26, 
-        shuffle=True, 
-        stratify=y
-    )
+    x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, random_state=26, shuffle=True, stratify=y)
     
     # Validating split sizes
     if len(x_train) == 0 or len(x_test) == 0:
@@ -436,7 +429,7 @@ if __name__ == "__main__":
     x_train, x_test, y_train, y_test, vectoriser = vectorise_data()
     
     print("\nTraining and evaluating models...")
-    results = train_evaluate_models(x_train, x_test, y_train, y_test)
+    results = train_evaluate_models(x_train, x_test, y_train, y_test)    
     
     print("\nRunning second vectorisation with n-grams...")
     second_vectorise_class_report()
@@ -444,9 +437,8 @@ if __name__ == "__main__":
     print("\nTesting custom tokenizer...")
     
     #Testing the tokensier function with a speech from the Part Two texts
-    sample_speech = """"We rightly took a decision to suspend face-to-face assessments following Public Health England’s guidance. We continue to keep this under review, but wherever possible, we are either doing a paper-based review or a telephone assessment, and we are automatically renewing reassessments that are due within three months by six months, and we review that on a regular basis."""
+    sample_speech = """We rightly took a decision to suspend face-to-face assessments following Public Health England’s guidance. We continue to keep this under review, but wherever possible, we are either doing a paper-based review or a telephone assessment, and we are automatically renewing reassessments that are due within three months by six months, and we review that on a regular basis."""
     tokens = custom_tokeniser_political_speeches(sample_speech)
     print("\nSample speech tokens:")
     print(tokens)
-    
     x, y, vectoriser = run_with_custom_tokeniser()
