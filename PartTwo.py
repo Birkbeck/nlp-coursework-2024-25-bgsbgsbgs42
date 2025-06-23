@@ -57,15 +57,20 @@ from sklearn.model_selection import train_test_split
 
 # Fucntion for vectorising the speeches using TF-IDF
 def vectorise_data():
-    # Reading the CSV file
-    df = pd.read_csv('hansard40000.csv')
+    # Getting cleaned data
+    df = data_processing()
+    
+    # Ensuring no NaN values remain
+    if df['party'].isna().any():
+        df = df.dropna(subset=['party'])
+
     
     vectoriser = TfidfVectorizer(stop_words='english', max_features=3000, min_df=5) # Error handling for edge cases of rare terms 
     x = vectoriser.fit_transform(df['speech'].astype(str))
     y = df['party']
     
     if x.shape[0] == 0:
-        raise ValueError("No documents could be vectorized")
+        raise ValueError("No documents could be vectorised")
     
     # Splitting into the train and test sets with stratified sampling
     x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, random_state=26, shuffle=True, stratify=y)
@@ -123,8 +128,12 @@ def train_evaluate_models(x_train, x_test, y_train, y_test):
 #d
 # Function for second vectorisor with unigrams, bigrams and trigrams
 def second_vectorise_class_report():
-    # Reading the CSV file
-    df = pd.read_csv('hansard40000.csv')
+    # Getting cleaned data
+    df = data_processing()
+    
+    # Ensuring no NaN values remain
+    if df['party'].isna().any():
+        df = df.dropna(subset=['party'])
     
     vectoriser = TfidfVectorizer(ngram_range=(1, 3),  stop_words='english', max_features=3000, min_df=5)
     x = vectoriser.fit_transform(df['speech'].astype(str))
@@ -358,25 +367,25 @@ def custom_tokeniser_political_speeches(text:str) -> list[str]:
     # Removing duplicates while preserving order (deduplication)
     seen = set()
     unique_tokens = []
-    final_tokens = []
     for token in processed_tokens:
         if token not in seen:
             seen.add(token)
-            unique_tokens.append(token) 
+            unique_tokens.append(token)
+
+    final_tokens = unique_tokens.copy()
     
-    # Initialising final_tokens
-    final_tokens = unique_tokens.copy() 
     
-        # Adding n-grams for political collocations
-        bigrams = [
-            f"{final_tokens[i]}_{final_tokens[i+1]}" 
-            for i in range(len(final_tokens)-1)
-        ]
-        
-        trigrams = [
-            f"{final_tokens[i]}_{final_tokens[i+1]}_{final_tokens[i+2]}" 
-            for i in range(len(final_tokens)-2)
+    
+    # Adding n-grams for political collocations
+    bigrams = [
+        f"{final_tokens[i]}_{final_tokens[i+1]}" 
+        for i in range(len(final_tokens)-1)
     ]
+    
+    trigrams = [
+        f"{final_tokens[i]}_{final_tokens[i+1]}_{final_tokens[i+2]}" 
+        for i in range(len(final_tokens)-2)
+]
     
     filtered_ngrams = [ngram for ngram in bigrams + trigrams]
 
